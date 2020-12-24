@@ -1,6 +1,5 @@
-*.pyc
+__pycache__/
+*.py[cod]
 *.egg
-build
-_build
-.cache
+*.so
 .vscode/
