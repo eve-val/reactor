@@ -9,6 +9,7 @@ eve = "eve.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+bravado = "^11.0.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
