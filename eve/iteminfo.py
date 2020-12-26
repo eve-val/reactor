@@ -7,7 +7,7 @@ from typing import Any, Dict, Tuple
 
 from bravado.client import SwaggerClient
 
-import eve.world as world
+from eve import world
 
 
 @dataclasses.dataclass
