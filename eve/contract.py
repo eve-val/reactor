@@ -5,7 +5,9 @@ import logging
 import bravado
 from typing import Any, Dict, List
 from bravado.client import SwaggerClient
-from eve.world import World
+from eve.world import World, ItemType
+import dataclasses
+import textwrap
 
 
 def _db_json_encoder(v: Any) -> Any:
@@ -163,6 +165,33 @@ def refresh_contracts(
     get_items_for_contracts(conn, api, region_id)
 
 
+@dataclasses.dataclass(frozen=True)
+class Blueprint:
+    item_type: ItemType
+    material_efficiency: int
+    time_efficiency: int
+    is_copy: bool
+    runs: int
+
+    def pretty_str(self) -> str:
+        bp_type = f"BPC:{self.runs}" if self.is_copy else "BPO"
+        return (
+            f"{self.item_type.name} ({bp_type} "
+            f"ME:{self.material_efficiency} "
+            f"TE:{self.time_efficiency})"
+        )
+
+    @staticmethod
+    def from_contract(it: ItemType, item: Dict[str, Any]) -> "Blueprint":
+        return Blueprint(
+            item_type=it,
+            material_efficiency=item["material_efficiency"],
+            time_efficiency=item["time_efficiency"],
+            is_copy=item["is_blueprint_copy"],
+            runs=item["runs"],
+        )
+
+
 def print_contract_row(w: World, row: sqlite3.Row):
     cid, region_id, title, price, raw_data_s, items_s = row
     raw_data = json.loads(raw_data_s)
@@ -173,12 +202,18 @@ def print_contract_row(w: World, row: sqlite3.Row):
     expires = datetime.datetime.fromtimestamp(raw_data["date_expired"])
     print(f"Valid until: {expires}")
     print(f"Volume: {raw_data['volume']:,.0f}")
-    station = w.station_name(raw_data["end_location_id"])
-    print(f"Located: {station}")
+    station = w.find_station(raw_data["end_location_id"])
+    print(f"Located: {station.name} ({station.security:.1f})")
     for item in items:
         quantity = item["quantity"]
-        name = w.item_name(item["type_id"])
-        print(f"  {quantity}x {name}")
+        it = w.find_item_type(item["type_id"])
+        if it.is_blueprint:
+            bp = Blueprint.from_contract(it, item)
+            print(f"  {quantity}x {bp.pretty_str()})")
+            formula = w.find_formula(it.id)
+            print(textwrap.indent(formula.pretty_str(), "    "))
+        else:
+            print(f"  {quantity}x {it.name}")
 
 
 def print_contract(
@@ -188,8 +223,8 @@ def print_contract(
         "SELECT "
         "  contract_id, region_id, title, price, raw_data, items "
         "FROM eveContracts LIMIT 10"
-        #"WHERE contract_id = ?",
-        #(contract_id,),
+        # "WHERE contract_id = ?",
+        # (contract_id,),
     )
     w = World(conn)
     for row in cursor.fetchall():
