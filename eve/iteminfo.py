@@ -24,6 +24,9 @@ class ItemInfo:
         return math.isfinite(self.high_price)
 
 
+
+
+
 class ItemInfoCache:
     def __init__(self, api: SwaggerClient):
         self.api = api

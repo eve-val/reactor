@@ -5,7 +5,7 @@ import logging
 import bravado
 from typing import Any, Dict, List
 from bravado.client import SwaggerClient
-from eve.world import World, ItemType
+from eve.world import Station, World, ItemType
 import dataclasses
 import textwrap
 
@@ -190,6 +190,24 @@ class Blueprint:
             is_copy=item["is_blueprint_copy"],
             runs=item["runs"],
         )
+
+
+class ContractItem:
+    item_type: ItemType
+    blueprint: Blueprint  # TODO remove itemtype from blueprint
+    # TODO find blueprint should take item type, not raw id? maybe.
+    quantity: int
+
+
+@dataclasses.dataclass(frozen=True)
+class Contract:
+    id: int
+    region_id: int
+    title: str
+    price: float
+    volume: float
+    station: Station
+    items: List[ContractItem]
 
 
 def print_contract_row(w: World, row: sqlite3.Row):

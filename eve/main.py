@@ -3,9 +3,9 @@ import logging
 from bravado.client import SwaggerClient
 from typing import Any, NamedTuple
 
-from eve.iteminfo import ItemInfoCache
 from eve import contract
 from eve import world
+from eve import market
 
 JITA = 10000002
 
@@ -45,7 +45,6 @@ class ContractList(NamedTuple):
     contracts: Any
 
 
-ITEM_CACHE_FILE_NAME = "/home/inazarenko/src/eve/data/item_info_cache.pickle"
 DB_FILE_NAME = "/home/inazarenko/src/eve/data/db.sqlite"
 
 
@@ -59,9 +58,11 @@ def main():
         config={"use_models": False},
     )
     logging.info("EVE API initialized")
+    ipc = market.ItemPriceCache(conn, api)
+    print(market.get_market_data(api, 34))
     # for region_id in world.MY_REGIONS:
     #     contract.refresh_contracts(conn, api, region_id)
-    contract.print_contract(conn, api, 165851510)
+    # contract.print_contract(conn, api, 165851510)
     # items = ItemInfoCache.load(ITEM_CACHE_FILE_NAME, api)
     # print(items.get(685))
     # print(items.get(584))

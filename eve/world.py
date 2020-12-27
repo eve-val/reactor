@@ -1,7 +1,8 @@
-from typing import Any, Dict, List, Optional, Type
 import dataclasses
 import sqlite3
+from typing import Dict, List
 
+from eve.orm_util import dataclass_from_row
 
 JITA_REGION_ID = 10000002
 SYNDICATE_REGION_ID = 10000041
@@ -11,6 +12,7 @@ MY_REGIONS = [
     SYNDICATE_REGION_ID,
     METOPOLIS_REGION_ID,
 ]
+JITA_4_4_STATION_ID = 60003760
 
 # Activity IDs are used in industry-activity tables. See ramActivities.csv.
 INDUSTRY_ACTIVITIES: Dict[str, int] = {
@@ -66,15 +68,6 @@ class Formula:
                 f"  {i.quantity}x {i.item_type.name}" for i in self.inputs
             )
         )
-
-
-def dataclass_from_row(cls: Type, row: sqlite3.Row):
-    if row is None:
-        return cls()
-    vals: Dict[str, Any] = {}
-    for f in dataclasses.fields(cls):
-        vals[f.name] = f.type(row[f.name])
-    return cls(**vals)
 
 
 class World:
