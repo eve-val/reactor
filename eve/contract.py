@@ -1,9 +1,10 @@
+from eve.orm_util import dataclass_from_row
 import sqlite3
 import datetime
 import json
 import logging
 import bravado
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from bravado.client import SwaggerClient
 from eve.world import Station, World, ItemType
 import dataclasses
@@ -167,7 +168,6 @@ def refresh_contracts(
 
 @dataclasses.dataclass(frozen=True)
 class Blueprint:
-    item_type: ItemType
     material_efficiency: int
     time_efficiency: int
     is_copy: bool
@@ -176,27 +176,22 @@ class Blueprint:
     def pretty_str(self) -> str:
         bp_type = f"BPC:{self.runs}" if self.is_copy else "BPO"
         return (
-            f"{self.item_type.name} ({bp_type} "
-            f"ME:{self.material_efficiency} "
-            f"TE:{self.time_efficiency})"
-        )
-
-    @staticmethod
-    def from_contract(it: ItemType, item: Dict[str, Any]) -> "Blueprint":
-        return Blueprint(
-            item_type=it,
-            material_efficiency=item["material_efficiency"],
-            time_efficiency=item["time_efficiency"],
-            is_copy=item["is_blueprint_copy"],
-            runs=item["runs"],
+            f"{bp_type} ME:{self.material_efficiency} "
+            f"TE:{self.time_efficiency}"
         )
 
 
+@dataclasses.dataclass(frozen=True)
 class ContractItem:
-    item_type: ItemType
-    blueprint: Blueprint  # TODO remove itemtype from blueprint
-    # TODO find blueprint should take item type, not raw id? maybe.
     quantity: int
+    item_type: ItemType
+    blueprint: Optional[Blueprint]
+
+    def pretty_str(self) -> str:
+        s = f"{self.quantity}x {self.item_type.name}"
+        if self.blueprint:
+            s += " " + self.blueprint.pretty_str()
+        return s
 
 
 @dataclasses.dataclass(frozen=True)
@@ -206,48 +201,66 @@ class Contract:
     title: str
     price: float
     volume: float
+    date_expired: datetime.datetime
     station: Station
     items: List[ContractItem]
 
+    def pretty_str(self) -> str:
+        s = [f"Contract ({self.id}): {self.title}"]
+        s.append(f"Price: {self.price:,.0f}")
+        s.append(f"Valid until: {self.date_expired}")
+        s.append(f"Volume: {self.volume:,.0f}")
+        s.append(f"Located: {self.station.name} ({self.station.security:.1f})")
+        for item in self.items:
+            s.append(textwrap.indent(item.pretty_str(), "  "))
+        return "\n".join(s)
 
-def print_contract_row(w: World, row: sqlite3.Row):
+
+def parse_contract_item(w: World, item: Dict[str, Any]) -> ContractItem:
+    quantity = item["quantity"]
+    it = w.find_item_type(item["type_id"])
+    bp = None
+    if it.is_blueprint:
+        bp = Blueprint(
+            item["material_efficiency"],
+            item["time_efficiency"],
+            bool(item["is_blueprint_copy"]),
+            int(item["runs"] or 0),
+        )
+    return ContractItem(item_type=it, blueprint=bp, quantity=quantity)
+
+
+def parse_contract_row(w: World, row: sqlite3.Row) -> Contract:
     cid, region_id, title, price, raw_data_s, items_s = row
     raw_data = json.loads(raw_data_s)
     items = json.loads(items_s)
-    print(f"Contract ({cid}): {title}")
+    parsed_items = [parse_contract_item(w, i) for i in items]
 
-    print(f"Price: {price:,.0f}")
-    expires = datetime.datetime.fromtimestamp(raw_data["date_expired"])
-    print(f"Valid until: {expires}")
-    print(f"Volume: {raw_data['volume']:,.0f}")
-    station = w.find_station(raw_data["end_location_id"])
-    print(f"Located: {station.name} ({station.security:.1f})")
-    for item in items:
-        quantity = item["quantity"]
-        it = w.find_item_type(item["type_id"])
-        if it.is_blueprint:
-            bp = Blueprint.from_contract(it, item)
-            print(f"  {quantity}x {bp.pretty_str()})")
-            formula = w.find_formula(it.id)
-            print(textwrap.indent(formula.pretty_str(), "    "))
-        else:
-            print(f"  {quantity}x {it.name}")
+    return Contract(
+        cid,
+        region_id,
+        title,
+        price,
+        raw_data["volume"],
+        datetime.datetime.fromtimestamp(raw_data["date_expired"]),
+        w.find_station(raw_data["end_location_id"]),
+        parsed_items,
+    )
 
 
-def print_contract(
-    conn: sqlite3.Connection, api: SwaggerClient, contract_id: int
+def get_contract(
+    conn: sqlite3.Connection, w: World, contract_id: int
 ):
-    cursor = conn.execute(
+    row = conn.execute(
         "SELECT "
         "  contract_id, region_id, title, price, raw_data, items "
-        "FROM eveContracts LIMIT 10"
-        # "WHERE contract_id = ?",
-        # (contract_id,),
-    )
-    w = World(conn)
-    for row in cursor.fetchall():
-        print_contract_row(w, row)
-        print("---")
+        "FROM eveContracts "
+        "WHERE contract_id = ?",
+        (contract_id,),
+    ).fetchone()
+    if row is None:
+        return None
+    return parse_contract_row(w, row)
 
 
 # api.Contracts.get_contracts_public_region_id(

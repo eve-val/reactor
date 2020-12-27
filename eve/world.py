@@ -96,14 +96,13 @@ class World:
         )
         return dataclass_from_row(ItemType, cursor.fetchone())
 
-    def find_formula(self, type_id: int) -> Formula:
-        blueprint = self.find_item_type(type_id)
+    def find_formula(self, blueprint: ItemType) -> Formula:
         if not blueprint.is_blueprint:
             raise ValueError(f"{blueprint.name} is not a blueprint")
         row = self.conn.execute(
             "SELECT time FROM industryActivity "
             "WHERE typeID = ? AND activityID = ?",
-            (type_id, INDUSTRY_ACTIVITY_MANUFACTURING),
+            (blueprint.id, INDUSTRY_ACTIVITY_MANUFACTURING),
         ).fetchone()
         if not row:
             raise ValueError(
@@ -113,7 +112,7 @@ class World:
         row = self.conn.execute(
             "SELECT productTypeID, quantity FROM industryActivityProducts "
             "WHERE typeID = ? AND activityID = ?",
-            (type_id, INDUSTRY_ACTIVITY_MANUFACTURING),
+            (blueprint.id, INDUSTRY_ACTIVITY_MANUFACTURING),
         ).fetchone()
         if not row:
             raise ValueError(
@@ -124,7 +123,7 @@ class World:
         mat_rows = self.conn.execute(
             "SELECT materialTypeID, quantity FROM industryActivityMaterials "
             "WHERE typeID = ? AND activityID = ?",
-            (type_id, INDUSTRY_ACTIVITY_MANUFACTURING),
+            (blueprint.id, INDUSTRY_ACTIVITY_MANUFACTURING),
         )
         inputs = []
         for row in mat_rows:
@@ -132,7 +131,6 @@ class World:
         return Formula(blueprint, time, output, inputs)
 
 
-# sqlite> SELECT R.regionID, R.regionName, F.factionName FROM mapRegions R JOIN chrFactions F ON R.factionID = F.factionID;
 # 10000001|Derelik|Ammatar Mandate
 # 10000002|The Forge|Caldari State
 # 10000011|Great Wildlands|Thukker Tribe

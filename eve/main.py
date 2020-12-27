@@ -10,41 +10,6 @@ from eve import market
 JITA = 10000002
 
 
-# def get_item_type(api: SwaggerClient, type_id: int):
-#     props = (
-#         api.Universe.get_universe_types_type_id(type_id=type_id)
-#         .response()
-#         .result
-#     )
-#     r = ItemInfo(
-#         type_id=type_id,
-#         name=props["name"],
-#         volume=props["volume"],
-#         price_history=api.Market.get_markets_region_id_history(
-#             region_id=JITA, type_id=type_id
-#         )
-#         .response()
-#         .result,
-#         buy_orders=api.Market.get_markets_region_id_orders(
-#             region_id=JITA, type_id=type_id, order_type="buy"
-#         )
-#         .response()
-#         .result,
-#         sell_orders=api.Market.get_markets_region_id_orders(
-#             region_id=JITA, type_id=type_id, order_type="sell"
-#         )
-#         .response()
-#         .result,
-#     )
-#     return r
-
-
-class ContractList(NamedTuple):
-    region_id: int
-    first_page_hash: str
-    contracts: Any
-
-
 DB_FILE_NAME = "/home/inazarenko/src/eve/data/db.sqlite"
 
 
@@ -58,11 +23,13 @@ def main():
         config={"use_models": False},
     )
     logging.info("EVE API initialized")
-    ipc = market.ItemPriceCache(conn, api)
-    print(market.get_market_data(api, 34))
+    #ipc = market.ItemPriceCache(conn, api)
+    #print(market.get_market_data(api, 34))
     # for region_id in world.MY_REGIONS:
     #     contract.refresh_contracts(conn, api, region_id)
-    # contract.print_contract(conn, api, 165851510)
+    w = world.World(conn)
+    c = contract.get_contract(conn, w, 165851510)
+    print(c.pretty_str())
     # items = ItemInfoCache.load(ITEM_CACHE_FILE_NAME, api)
     # print(items.get(685))
     # print(items.get(584))
