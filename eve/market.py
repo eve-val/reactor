@@ -1,7 +1,9 @@
 import dataclasses
+import logging
 import sqlite3
 import datetime
 import math
+import bravado
 from typing import Any, Dict, List
 
 from bravado.client import SwaggerClient
@@ -23,6 +25,8 @@ class ItemPrice:
 
 MIN_TOTAL_COST = 100000000
 MIN_TOTAL_QTY = 2
+BUY_ORDER_SETUP_DISCOUNT = 0.95
+SELL_ORDER_SETUP_DISCOUNT = 1.05
 
 
 def buy_order_price(buy_orders: List[Dict[str, Any]]) -> float:
@@ -57,7 +61,6 @@ def sell_order_price(sell_orders: List[Dict[str, Any]]) -> float:
         if is_good_sell_order(x)
     ]
     prices.sort(key=lambda p: p[1])
-    print(prices)
     total_cost = 0.0
     total_qty = 0.0
     for p in prices:
@@ -69,40 +72,61 @@ def sell_order_price(sell_orders: List[Dict[str, Any]]) -> float:
 
 
 def get_market_data(api: SwaggerClient, type_id: int) -> ItemPrice:
-    hist = (
-        api.Market.get_markets_region_id_history(
-            region_id=world.JITA_REGION_ID, type_id=type_id
-        )
-        .response()
-        .result
-    )
-    if not hist:
-        return ItemPrice(type_id, datetime.datetime.now())
-    hist = sorted(hist, key=lambda d: d["date"])
-    if len(hist) > 30:
-        hist = hist[-30:]
-    daily_trade_volume = sum([d["volume"] for d in hist]) / len(hist)
-    valid_days = [d for d in hist if d["volume"] > 0]
-    low_price = min(d["lowest"] for d in valid_days)
-    high_price = max(d["highest"] for d in valid_days)
+    low_price = 0.0
+    high_price = math.inf
+    daily_trade_volume = 0.0
 
-    buy_orders = (
-        api.Market.get_markets_region_id_orders(
-            region_id=world.JITA_REGION_ID, type_id=type_id, order_type="buy"
+    try:
+        hist = (
+            api.Market.get_markets_region_id_history(
+                region_id=world.JITA_REGION_ID, type_id=type_id
+            )
+            .response()
+            .result
         )
-        .response()
-        .result
-    )
-    low_price = max(low_price, buy_order_price(buy_orders))
+        hist = sorted(hist, key=lambda d: d["date"])
+        if len(hist) > 30:
+            hist = hist[-30:]
+        if hist:
+            daily_trade_volume = sum([d["volume"] for d in hist]) / len(hist)
+        valid_days = [d for d in hist if d["volume"] >= MIN_TOTAL_QTY]
+        if len(valid_days) > 10:
+            low_price = BUY_ORDER_SETUP_DISCOUNT * min(
+                d["lowest"] for d in valid_days
+            )
+            high_price = SELL_ORDER_SETUP_DISCOUNT * max(
+                d["highest"] for d in valid_days
+            )
+    except bravado.exception.HTTPNotFound:
+        pass
 
-    sell_orders = (
-        api.Market.get_markets_region_id_orders(
-            region_id=world.JITA_REGION_ID, type_id=type_id, order_type="sell"
+    try:
+        buy_orders = (
+            api.Market.get_markets_region_id_orders(
+                region_id=world.JITA_REGION_ID,
+                type_id=type_id,
+                order_type="buy",
+            )
+            .response()
+            .result
         )
-        .response()
-        .result
-    )
-    high_price = min(high_price, sell_order_price(sell_orders))
+        low_price = max(low_price, buy_order_price(buy_orders))
+    except bravado.exception.HTTPNotFound:
+        pass
+
+    try:
+        sell_orders = (
+            api.Market.get_markets_region_id_orders(
+                region_id=world.JITA_REGION_ID,
+                type_id=type_id,
+                order_type="sell",
+            )
+            .response()
+            .result
+        )
+        high_price = min(high_price, sell_order_price(sell_orders))
+    except bravado.exception.HTTPNotFound:
+        pass
 
     return ItemPrice(
         type_id,
@@ -135,7 +159,7 @@ class ItemPriceCache:
         self.conn = conn
         self.api = api
 
-    def find_item_price(self, type_id: int) -> ItemPrice:
+    def find_item_price(self, item_type: world.ItemType) -> ItemPrice:
         ip = dataclass_from_row(
             ItemPrice,
             self.conn.execute(
@@ -143,13 +167,14 @@ class ItemPriceCache:
                 "  type_id, last_refreshed, daily_trade_volume, "
                 "  low_price, high_price "
                 "FROM eveMarket WHERE type_id = ?",
-                (type_id,),
+                (item_type.id,),
             ).fetchone(),
         )
         if datetime.datetime.now() - ip.last_refreshed > datetime.timedelta(
             days=2
         ):
-            ip = get_market_data(self.api, type_id)
+            logging.info("retriving pricing data for %s", item_type.name)
+            ip = get_market_data(self.api, item_type.id)
             store_item_price(self.conn, ip)
         return ip
 

@@ -15,5 +15,7 @@ def dataclass_from_row(
         v: Any = row[f.name]
         if f.type is datetime.datetime:
             v = datetime.datetime.fromtimestamp(v)
-        vals[f.name] = f.type(v)
+        else:
+            v = f.type(v)
+        vals[f.name] = v
     return cls(**vals)

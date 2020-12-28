@@ -40,11 +40,24 @@ class Station:
 class ItemType:
     id: int = -1
     name: str = UNKNOWN_NAME
+    group: str = UNKNOWN_NAME
     category: str = UNKNOWN_NAME
+
+    @property
+    def full_name(self) -> str:
+        return f"{self.name}/{self.group}/{self.category}"
 
     @property
     def is_blueprint(self) -> bool:
         return self.category == "Blueprint"
+
+    @property
+    def is_ship(self) -> bool:
+        return self.category == "Ship"
+
+    @property
+    def is_rig(self) -> bool:
+        return self.group.startswith("Rig ")
 
 
 @dataclasses.dataclass(frozen=True)
@@ -70,6 +83,10 @@ class Formula:
         )
 
 
+class FormulaNotFound(LookupError):
+    pass
+
+
 class World:
     def __init__(self, conn: sqlite3.Connection):
         self.conn = conn
@@ -88,7 +105,8 @@ class World:
     def find_item_type(self, type_id: int) -> ItemType:
         cursor = self.conn.execute(
             "SELECT "
-            "  T.typeID id, T.typeName name, C.categoryName category "
+            "  T.typeID id, T.typeName name, G.groupName 'group', "
+            "  C.categoryName category "
             "FROM invTypes T JOIN invGroups G ON T.groupID = G.groupID "
             "  JOIN invCategories C ON G.categoryID = C.categoryID "
             "WHERE T.typeID = ?",
@@ -105,7 +123,7 @@ class World:
             (blueprint.id, INDUSTRY_ACTIVITY_MANUFACTURING),
         ).fetchone()
         if not row:
-            raise ValueError(
+            raise FormulaNotFound(
                 f"{blueprint.name} not found in industryActivities"
             )
         time = row[0]
@@ -115,7 +133,7 @@ class World:
             (blueprint.id, INDUSTRY_ACTIVITY_MANUFACTURING),
         ).fetchone()
         if not row:
-            raise ValueError(
+            raise FormulaNotFound(
                 f"{blueprint.name} not found in industryActivityProducts"
             )
         productTypeID, quantity = row
