@@ -4,6 +4,7 @@ import sqlite3
 import datetime
 import math
 import bravado
+import random
 from typing import Any, Dict, List
 
 from bravado.client import SwaggerClient
@@ -171,7 +172,7 @@ class ItemPriceCache:
             ).fetchone(),
         )
         if datetime.datetime.now() - ip.last_refreshed > datetime.timedelta(
-            days=2
+            hours=random.uniform(36, 36+24)
         ):
             logging.info("retriving pricing data for %s", item_type.name)
             ip = get_market_data(self.api, item_type.id)

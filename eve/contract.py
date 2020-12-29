@@ -5,7 +5,7 @@ import datetime
 import json
 import logging
 import bravado
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from bravado.client import SwaggerClient
 from eve.world import FormulaNotFound, Station, World, ItemType, Formula
 import dataclasses
@@ -231,6 +231,10 @@ class Contract:
     def contains_ships(self) -> bool:
         return any(it.item_type.is_ship for it in self.items)
 
+    @property
+    def requires_items(self) -> bool:
+        return any(it.quantity < 0 for it in self.items)
+
 
 def parse_contract_item(w: World, item: Dict[str, Any]) -> ContractItem:
     quantity = item["quantity"]
@@ -295,6 +299,7 @@ def estimate_contract_value(
 ) -> float:
     total = 0.0
     contains_ships = c.contains_ships
+    blueprint_profits: List[Tuple[float, float]] = []
     for item in c.items:
         if "Abyssal" in item.item_type.name:
             continue
@@ -305,8 +310,10 @@ def estimate_contract_value(
         if item.maybe_damaged_crystal:
             continue
         if item.blueprint:
-            continue   # TODO price them better
             if not item.blueprint.is_copy:
+                continue
+             # Ignore capital and structure modules for now
+            if item.item_type.is_huge:
                 continue
             try:
                 formula = w.find_formula(item.item_type)
@@ -315,11 +322,26 @@ def estimate_contract_value(
                     f"no formula for blueprint: {item.item_type.name}"
                 )
                 continue
-            fp = get_formula_profit(ipc, formula)
-            total += max(0.0, item.quantity * item.blueprint.runs * fp)
+            profit_per_run = get_formula_profit(ipc, formula)
+            run_count = item.quantity * item.blueprint.runs
+            blueprint_profits.append(
+                (run_count * formula.time, run_count * profit_per_run)
+            )
             continue
         p = ipc.find_item_price(item.item_type)
         total += p.low_price * item.quantity
+    # Limit profit from blueprints to 5 days of work.
+    blueprint_profits.sort(key=lambda p: p[1] / p[0], reverse=True)
+    total_time = 0.0
+    max_time = 24.0 * 60 * 60 * 5
+    for seconds, profit in blueprint_profits:
+        if profit <= 0.0:
+            break
+        seconds_remain = min(seconds, max_time - total_time)
+        if seconds_remain <= 0:
+            break
+        total_time += seconds_remain
+        total += profit * (seconds_remain / seconds)
     return total
 
 
@@ -363,15 +385,17 @@ def print_profitable_contracts(conn: sqlite3.Connection, w: World):
         "SELECT "
         "  contract_id, region_id, title, price, raw_data, items, estimate "
         "FROM eveContracts "
-        "WHERE estimate * 0.9 > price AND (estimate - price) > 2e7"
+        "WHERE estimate * 0.9 > price AND (estimate * 0.95 - price) > 1e7"
     )
     contracts = [(row["estimate"], parse_contract_row(w, row)) for row in rows]
     contracts.sort(key=lambda r: r[0] - r[1].price)
     for estimate, c in contracts:
         if c.volume > 50000 or c.station.security < 0.5:
             continue
-        print(c.pretty_str())
+        if c.requires_items:
+            continue
         print(f"Value: {estimate:,.0f}")
+        print(c.pretty_str())
         print()
 
 

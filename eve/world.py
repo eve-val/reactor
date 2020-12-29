@@ -1,25 +1,46 @@
 import dataclasses
 import sqlite3
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from eve.orm_util import dataclass_from_row
 
 JITA_REGION_ID = 10000002
 SYNDICATE_REGION_ID = 10000041
 METOPOLIS_REGION_ID = 10000042
+
 MY_REGIONS = [
-    JITA_REGION_ID,
     SYNDICATE_REGION_ID,
-    METOPOLIS_REGION_ID,
+    10000001,
+    10000002,
+    10000016,
+    10000020,
+    10000028,
+    10000030,
+    10000032,
+    10000033,
+    10000036,
+    10000037,
+    10000038,
+    10000041,
+    10000042,
+    10000043,
+    10000044,
+    10000048,
+    10000049,
+    10000052,
+    10000054,
+    10000064,
+    10000065,
+    10000067,
+    10000068,
+    10000069,
 ]
+
 JITA_4_4_STATION_ID = 60003760
 
 # Activity IDs are used in industry-activity tables. See ramActivities.csv.
-INDUSTRY_ACTIVITIES: Dict[str, int] = {
-    "manufacturing": 1,
-    "copying": 5,
-}
 INDUSTRY_ACTIVITY_MANUFACTURING = 1
+INDUSTRY_ACTIVITY_REACTIONS = 11
 
 UNKNOWN_NAME = "<unknown>"
 MAX_VALID_STATION_ID = 100000000
@@ -45,11 +66,15 @@ class ItemType:
 
     @property
     def full_name(self) -> str:
-        return f"{self.name}/{self.group}/{self.category}"
+        return f"{self.name} / {self.group} / {self.category} ({self.id})"
 
     @property
     def is_blueprint(self) -> bool:
         return self.category == "Blueprint"
+
+    @property
+    def is_reaction_blueprint(self) -> bool:
+        return self.is_blueprint and self.group.endswith(" Reaction Formulas")
 
     @property
     def is_ship(self) -> bool:
@@ -58,6 +83,21 @@ class ItemType:
     @property
     def is_rig(self) -> bool:
         return self.group.startswith("Rig ")
+
+    @property
+    def is_capital(self) -> bool:
+        return self.name.startswith("Capital ") or self.name.startswith(
+            "CONCORD Capital "
+        )
+
+    @property
+    def is_huge(self) -> bool:
+        return (
+            self.is_capital
+            or self.group.startswith("Infrastructure Upgrade")
+            or self.name.startswith("Standup")
+            or self.name.startswith("Starbase")
+        )
 
 
 @dataclasses.dataclass(frozen=True)
@@ -114,23 +154,55 @@ class World:
         )
         return dataclass_from_row(ItemType, cursor.fetchone())
 
+    def find_item_type_by_name(self, name: str) -> ItemType:
+        cursor = self.conn.execute(
+            "SELECT "
+            "  T.typeID id, T.typeName name, G.groupName 'group', "
+            "  C.categoryName category "
+            "FROM invTypes T JOIN invGroups G ON T.groupID = G.groupID "
+            "  JOIN invCategories C ON G.categoryID = C.categoryID "
+            "WHERE T.typeName = ?",
+            (name,),
+        )
+        return dataclass_from_row(ItemType, cursor.fetchone())
+
+    def find_blueprint(self, item: ItemType) -> Optional[ItemType]:
+        row = self.conn.execute(
+            "SELECT typeID FROM industryActivityProducts "
+            "WHERE productTypeID = ? AND activityID IN (?, ?) "
+            "  AND typeID != 45732",  # "Test Reaction".
+            (
+                item.id,
+                INDUSTRY_ACTIVITY_MANUFACTURING,
+                INDUSTRY_ACTIVITY_REACTIONS,
+            ),
+        ).fetchone()
+        if not row:
+            return None
+        return self.find_item_type(row[0])
+
     def find_formula(self, blueprint: ItemType) -> Formula:
         if not blueprint.is_blueprint:
             raise ValueError(f"{blueprint.name} is not a blueprint")
+        activity_id = (
+            INDUSTRY_ACTIVITY_REACTIONS
+            if blueprint.is_reaction_blueprint
+            else INDUSTRY_ACTIVITY_MANUFACTURING
+        )
         row = self.conn.execute(
             "SELECT time FROM industryActivity "
             "WHERE typeID = ? AND activityID = ?",
-            (blueprint.id, INDUSTRY_ACTIVITY_MANUFACTURING),
+            (blueprint.id, activity_id),
         ).fetchone()
         if not row:
             raise FormulaNotFound(
-                f"{blueprint.name} not found in industryActivities"
+                f"{blueprint.full_name} not found in industryActivities"
             )
         time = row[0]
         row = self.conn.execute(
             "SELECT productTypeID, quantity FROM industryActivityProducts "
             "WHERE typeID = ? AND activityID = ?",
-            (blueprint.id, INDUSTRY_ACTIVITY_MANUFACTURING),
+            (blueprint.id, activity_id),
         ).fetchone()
         if not row:
             raise FormulaNotFound(
@@ -141,7 +213,7 @@ class World:
         mat_rows = self.conn.execute(
             "SELECT materialTypeID, quantity FROM industryActivityMaterials "
             "WHERE typeID = ? AND activityID = ?",
-            (blueprint.id, INDUSTRY_ACTIVITY_MANUFACTURING),
+            (blueprint.id, activity_id),
         )
         inputs = []
         for row in mat_rows:
@@ -149,35 +221,27 @@ class World:
         return Formula(blueprint, time, output, inputs)
 
 
-# 10000001|Derelik|Ammatar Mandate
-# 10000002|The Forge|Caldari State
-# 10000011|Great Wildlands|Thukker Tribe
-# 10000012|Curse|Angel Cartel
-# 10000015|Venal|Guristas Pirates
-# 10000016|Lonetrek|Caldari State
-# 10000017|J7HZ-F|Jove Empire
-# 10000019|A821-A|Jove Empire
-# 10000020|Tash-Murkon|Amarr Empire
-# 10000022|Stain|Sansha's Nation
-# 10000028|Molden Heath|Minmatar Republic
-# 10000030|Heimatar|Minmatar Republic
-# 10000032|Sinq Laison|Gallente Federation
-# 10000033|The Citadel|Caldari State
-# 10000036|Devoid|Amarr Empire
-# 10000037|Everyshore|Gallente Federation
-# 10000038|The Bleak Lands|Amarr Empire
-# 10000041|Syndicate|The Syndicate
-# 10000042|Metropolis|Minmatar Republic
-# 10000043|Domain|Amarr Empire
-# 10000044|Solitude|Gallente Federation
-# 10000048|Placid|Gallente Federation
-# 10000049|Khanid|Khanid Kingdom
-# 10000052|Kador|Amarr Empire
-# 10000054|Aridia|Amarr Empire
-# 10000057|Outer Ring|ORE
-# 10000064|Essence|Gallente Federation
-# 10000065|Kor-Azor|Amarr Empire
-# 10000067|Genesis|Amarr Empire
-# 10000068|Verge Vendor|Gallente Federation
-# 10000069|Black Rise|Caldari State
-# 10000070|Pochven|Triglavian Collective
+10000001,
+10000002,
+10000016,
+10000020,
+10000028,
+10000030,
+10000032,
+10000033,
+10000036,
+10000037,
+10000038,
+10000041,
+10000042,
+10000043,
+10000044,
+10000048,
+10000049,
+10000052,
+10000054,
+10000064,
+10000065,
+10000067,
+10000068,
+10000069,

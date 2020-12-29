@@ -5,7 +5,8 @@ description = ""
 authors = ["Igor Nazarenko <igor.n.nazarenko@gmail.com>"]
 
 [tool.poetry.scripts]
-eve = "eve.main:main"
+contractor = "contractor:main"
+reactor = "reactor:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
