@@ -4,6 +4,7 @@ import logging
 import math
 import random
 import sqlite3
+import json
 from typing import Any, Dict, List
 
 import bravado
@@ -31,6 +32,16 @@ class ItemPriceWithDetails:
     history: List[Any]
     buy_orders: List[Any]
     sell_orders: List[Any]
+
+
+@dataclasses.dataclass(frozen=True)
+class HistoricalItemPrice:
+    date: datetime.date
+    average: float
+    lowest: float
+    highest: float
+    volume: float
+    order_count: float
 
 
 MIN_TOTAL_COST = 100000000
@@ -112,8 +123,8 @@ def get_market_data(api: SwaggerClient, type_id: int) -> ItemPriceWithDetails:
             .result
         )
         history = sorted(history, key=lambda d: d["date"])
-        if len(history) > 90:
-            history = history[-90:]
+        if len(history) > 180:
+            history = history[-180:]
         history = list(history)
         if len(history) > 30:
             short = history[-30:]
@@ -184,10 +195,19 @@ def store_item_price(conn: sqlite3.Connection, ipwd: ItemPriceWithDetails):
             )
 
 
+def parse_history(data: List[Dict[str, Any]]) -> List[HistoricalItemPrice]:
+    return [dataclass_from_row(HistoricalItemPrice, d) for d in data]
+
+
 class ItemPriceCache:
     def __init__(self, conn: sqlite3.Connection, api: SwaggerClient):
         self.conn = conn
         self.api = api
+
+    def _is_fresh(self, d: datetime.datetime) -> bool:
+        return datetime.datetime.now() - d <= datetime.timedelta(
+            hours=random.uniform(6, 6)
+        )
 
     def find_item_price(self, item_type: world.ItemType) -> ItemPrice:
         ip = dataclass_from_row(
@@ -200,14 +220,27 @@ class ItemPriceCache:
                 (item_type.id,),
             ).fetchone(),
         )
-        if datetime.datetime.now() - ip.last_refreshed <= datetime.timedelta(
-            hours=random.uniform(6, 6)
-        ):
+        if self._is_fresh(ip.last_refreshed):
             return ip
         logging.info("retriving pricing data for %s", item_type.name)
         ipwd = get_market_data(self.api, item_type.id)
         store_item_price(self.conn, ipwd)
         return ipwd.item_price
+
+    def get_price_history(
+        self, item_type: world.ItemType
+    ) -> List[HistoricalItemPrice]:
+        row = self.conn.execute(
+            "SELECT last_refreshed, history "
+            "FROM eveMarket WHERE type_id = ?",
+            (item_type.id,),
+        ).fetchone()
+        if row and self._is_fresh(datetime.datetime.fromtimestamp(row[0])):
+            return parse_history(json.loads(row[1]))
+        logging.info("retriving pricing data for %s", item_type.name)
+        ipwd = get_market_data(self.api, item_type.id)
+        store_item_price(self.conn, ipwd)
+        return parse_history(ipwd.history)
 
 
 def create_table(conn: sqlite3.Connection):
@@ -221,10 +254,11 @@ def create_table(conn: sqlite3.Connection):
             "history" JSON NOT NULL
         );
         CREATE TABLE IF NOT EXISTS "eveMarketHistory" (
-            "type_id" INTEGER PRIMARY KEY NOT NULL,
+            "type_id" INTEGER NOT NULL,
             "retrieved_on" INTEGER NOT NULL,
             "buy_orders" JSON NOT NULL,
-            "sell_orders" JSON NOT NULL
+            "sell_orders" JSON NOT NULL,
+            PRIMARY KEY ("type_id", "retrieved_on")
         );
         """
     conn.execute(CREATE_TABLE_SQL)

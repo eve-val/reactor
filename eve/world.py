@@ -60,9 +60,15 @@ class Station:
 @dataclasses.dataclass(frozen=True)
 class ItemType:
     id: int = -1
-    name: str = UNKNOWN_NAME
-    group: str = UNKNOWN_NAME
-    category: str = UNKNOWN_NAME
+    name: str = dataclasses.field(
+        default=UNKNOWN_NAME, hash=False, compare=False
+    )
+    group: str = dataclasses.field(
+        default=UNKNOWN_NAME, hash=False, compare=False
+    )
+    category: str = dataclasses.field(
+        default=UNKNOWN_NAME, hash=False, compare=False
+    )
 
     @property
     def full_name(self) -> str:

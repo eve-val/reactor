@@ -17,6 +17,8 @@ def dataclass_from_row(
         v: Any = row[f.name]
         if f.type is datetime.datetime:
             v = datetime.datetime.fromtimestamp(v)
+        elif f.type is datetime.date:
+            v = datetime.date.fromisoformat(v)
         else:
             v = f.type(v)
         vals[f.name] = v

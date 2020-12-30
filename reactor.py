@@ -1,7 +1,8 @@
 import dataclasses
+import datetime
 import logging
 import itertools
-from typing import Dict, List, Optional
+from typing import Any, DefaultDict, Dict, Iterable, List, Set, Tuple
 
 from eve import market, services, world
 
@@ -48,8 +49,13 @@ REACTIONS = [
 ]
 
 
+ItemPriceDict = Dict[world.ItemType, market.ItemPrice]
+ItemPriceHistoryDict = Dict[world.ItemType, List[market.HistoricalItemPrice]]
+
+
 @dataclasses.dataclass
 class PricedFormula:
+    name: str
     formula: world.Formula
     daily_volume_in_runs: float
     profit: float
@@ -59,6 +65,7 @@ class PricedFormula:
         return 24.0 * 60 * 60 / self.formula.time * self.profit
 
     def print(self, w: world.World, ipc: market.ItemPriceCache):
+        print(self.name)
         f = self.formula
         p = ipc.find_item_price(f.output.item_type)
         amt = p.low_price * f.output.quantity
@@ -85,26 +92,26 @@ SALES_TAX_DISCOUNT = 0.95
 
 
 def price_formula(
-    ipc: market.ItemPriceCache, f: world.Formula, verbose: bool = False
+    ipc: ItemPriceDict, name: str, f: world.Formula
 ) -> PricedFormula:
-    p = ipc.find_item_price(f.output.item_type)
+    p = ipc[f.output.item_type]
     daily_volume_in_runs = p.daily_trade_volume / f.output.quantity
     amt = p.low_price * f.output.quantity
     total = amt * SALES_TAX_DISCOUNT
 
     for inp in f.inputs:
-        p = ipc.find_item_price(inp.item_type)
+        p = ipc[inp.item_type]
         amt = -p.high_price * inp.quantity
         total += amt
 
-    return PricedFormula(f, daily_volume_in_runs, total)
+    return PricedFormula(name, f, daily_volume_in_runs, total)
 
 
 def fold_formula_with(
     f: world.Formula, to_fold: Dict[int, world.Formula]
-) -> world.Formula:
+) -> Tuple[str, world.Formula]:
     if not to_fold:
-        return f
+        return f.output.item_type.name, f
     new_items = []
     total_time = f.time
     for it in f.inputs:
@@ -118,7 +125,10 @@ def fold_formula_with(
             new_items.append(
                 world.ItemQuantity(s_it.item_type, s_it.quantity * multiplier)
             )
-    return world.Formula(f.blueprint, total_time, f.output, new_items)
+    names = [it.output.item_type.name for it in to_fold.values()]
+    sub_names = ", ".join(sorted(names))
+    name = f"{f.output.item_type.name}[{sub_names}]"
+    return name, world.Formula(f.blueprint, total_time, f.output, new_items)
 
 
 def powerset(iterable):
@@ -130,7 +140,7 @@ def powerset(iterable):
 
 def fold_formula(
     f: world.Formula, others: Dict[int, world.Formula]
-) -> List[world.Formula]:
+) -> List[Tuple[str, world.Formula]]:
     foldable = [
         others[it.item_type.id] for it in f.inputs if it.item_type.id in others
     ]
@@ -155,18 +165,115 @@ def print_industry_tree(w: world.World, padding: int, it: world.ItemType):
         print_industry_tree(w, padding + 2, inp.item_type)
 
 
-def main():
+def fold_all_formulas(
+    formulas: List[world.Formula],
+) -> List[Tuple[str, world.Formula]]:
+    formulas_by_output = {f.output.item_type.id: f for f in formulas}
+    r = []
+    for f in formulas:
+        r.extend(fold_formula(f, formulas_by_output))
+    return r
+
+
+def get_all_items(formulas: List[world.Formula]) -> Set[world.ItemType]:
+    r: Set[world.ItemType] = set()
+    for f in formulas:
+        r.add(f.output.item_type)
+        r.update(it.item_type for it in f.inputs)
+    return r
+
+
+def get_all_prices(
+    ipc: market.ItemPriceCache, items: Iterable[world.ItemType]
+) -> ItemPriceDict:
+    return {it: ipc.find_item_price(it) for it in items}
+
+
+def get_all_price_histories(
+    ipc: market.ItemPriceCache, items: Iterable[world.ItemType]
+) -> ItemPriceHistoryDict:
+    return {it: ipc.get_price_history(it) for it in items}
+
+
+def get_price_snapshot(
+    hist: ItemPriceHistoryDict, d: datetime.date
+) -> ItemPriceDict:
+    r = {}
+    last_updated = datetime.datetime(d.year, d.month, d.day)
+    time_radius = datetime.timedelta(days=2)
+    min_date = d - time_radius
+    max_date = d + time_radius
+    for it, prices in hist.items():
+        price_slice = [
+            p for p in prices if p.date >= min_date and p.date <= max_date
+        ]
+        lo = 0.95 * max(p.lowest for p in price_slice)
+        hi = 1.05 * min(p.highest for p in price_slice)
+        vol = sum(p.volume for p in price_slice) / len(price_slice)
+        r[it] = market.ItemPrice(it.id, last_updated, vol, lo, hi)
+    return r
+
+
+def get_common_dates(prices: ItemPriceHistoryDict) -> List[datetime.date]:
+    r = None
+    for price_list in prices.values():
+        if r is None:
+            r = set(p.date for p in price_list)
+        else:
+            r = r.intersection(p.date for p in price_list)
+    if r is None:
+        return []
+    return sorted(r)
+
+
+def profit_key(xs: List[float]) -> Any:
+    return (sum(bool(x > 100000) for x in xs), sum(xs))
+
+
+def history():
     logging.basicConfig(level=logging.INFO)
     serv = services.Services()
     w = world.World(serv.reference_db)
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
     formulas = [w.find_formula(w.find_item_type(id)) for id in REACTIONS]
+    prices = get_all_price_histories(ipc, get_all_items(formulas))
+    all_formulas = fold_all_formulas(formulas)
+    dates = get_common_dates(prices)
+    results = {name: [] for name, _ in all_formulas}
+    for d in dates:
+        price_slice = get_price_snapshot(prices, d)
+        for name, f in all_formulas:
+            pf = price_formula(price_slice, name, f)
+            results[name].append(pf.profit_per_day)
+    results = [
+        (name, profits)
+        for name, profits in results.items()
+    ]
+    results.sort(key=lambda x: profit_key(x[1]), reverse=True)
+    seen_products = set()
+    for name, r in results:
+        product = name.split("[")[0]
+        if product in seen_products:
+            continue
+        seen_products.add(product)
+        print(name + ", " + ", ".join(f"{x:.0f}" for x in r))
+
+
+def reactor():
+    logging.basicConfig(level=logging.INFO)
+    serv = services.Services()
+    w = world.World(serv.reference_db)
+    ipc = market.ItemPriceCache(serv.store_db, serv.api)
+
+    formulas = [w.find_formula(w.find_item_type(id)) for id in REACTIONS]
+    prices = get_all_prices(ipc, get_all_items(formulas))
     formulas_by_output = {f.output.item_type.id: f for f in formulas}
     priced = []
     for f in formulas:
         folded = [
-            price_formula(ipc, f) for f in fold_formula(f, formulas_by_output)
+            price_formula(prices, name, f)
+            for name, f in fold_formula(f, formulas_by_output)
         ]
         folded.sort(key=lambda p: p.profit_per_day, reverse=True)
         priced.append(folded[0])
@@ -177,4 +284,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    reactor()
