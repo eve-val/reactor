@@ -1,0 +1,261 @@
+      6,159,000 300x Nonlinear Metamaterials; volume (runs): 1,989, runtime 21600.0s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+        -45,575 2.5x Oxygen Fuel Block; volume (runs): 188,358
+       -271,950 50.0x Titanium; volume (runs): 17,375
+       -407,500 50.0x Chromium; volume (runs): 34,067
+        -45,225 2.5x Hydrogen Fuel Block; volume (runs): 224,135
+       -342,450 50.0x Hafnium; volume (runs): 30,792
+     -3,350,000 50.0x Dysprosium; volume (runs): 9,951
+=     1,295,150 per run (5,180,600 per day)
+
+     11,520,000 400x Ferrogel; volume (runs): 1,126, runtime 21600.0s
+        -90,450 5x Hydrogen Fuel Block; volume (runs): 112,067
+       -999,900 100x Hexite; volume (runs): 553
+     -2,634,000 100x Hyperflurite; volume (runs): 237
+        -45,225 2.5x Hydrogen Fuel Block; volume (runs): 224,135
+       -342,450 50.0x Hafnium; volume (runs): 30,792
+     -3,350,000 50.0x Dysprosium; volume (runs): 9,951
+        -45,575 2.5x Oxygen Fuel Block; volume (runs): 188,358
+       -403,750 50.0x Cadmium; volume (runs): 30,776
+     -2,244,500 50.0x Promethium; volume (runs): 10,207
+=       788,150 per run (3,152,600 per day)
+
+      6,609,000 750x Hypersynaptic Fibers; volume (runs): 1,008, runtime 21600.0s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+       -997,900 100x Solerium; volume (runs): 148
+        -45,450 2.5x Helium Fuel Block; volume (runs): 300,720
+       -387,400 50.0x Mercury; volume (runs): 16,260
+     -3,350,000 50.0x Dysprosium; volume (runs): 9,951
+        -45,225 2.5x Hydrogen Fuel Block; volume (runs): 224,135
+       -254,900 50.0x Vanadium; volume (runs): 25,949
+       -342,450 50.0x Hafnium; volume (runs): 30,792
+=       764,075 per run (3,056,300 per day)
+
+      1,725,300 3000x Fullerides; volume (runs): 3,466, runtime 10800s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+       -134,500 100x Carbon Polymers; volume (runs): 2,431
+     -1,075,000 100x Platinum Technite; volume (runs): 646
+=       336,335 per run (2,690,680 per day)
+
+      3,177,000 300x Photonic Metamaterials; volume (runs): 2,416, runtime 16200.0s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+        -45,450 2.5x Helium Fuel Block; volume (runs): 300,720
+       -168,950 50.0x Cobalt; volume (runs): 19,844
+       -403,750 50.0x Cadmium; volume (runs): 30,776
+     -1,850,000 100x Thulium Hafnite; volume (runs): 346
+=       458,850 per run (2,447,200 per day)
+
+      5,272,500 1500x Nanotransistors; volume (runs): 1,497, runtime 10800s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+       -149,900 100x Sulfuric Acid; volume (runs): 747
+     -1,075,000 100x Platinum Technite; volume (runs): 646
+     -3,392,000 100x Neo Mercurite; volume (runs): 347
+=       298,775 per run (2,390,200 per day)
+
+      2,767,600 2200x Phenolic Composites; volume (runs): 3,145, runtime 16200.0s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+       -235,700 100x Silicon Diborite; volume (runs): 1,442
+     -1,218,000 100x Caesarium Cadmide; volume (runs): 297
+        -45,225 2.5x Hydrogen Fuel Block; volume (runs): 224,135
+       -254,900 50.0x Vanadium; volume (runs): 25,949
+       -342,450 50.0x Hafnium; volume (runs): 30,792
+=       441,795 per run (2,356,240 per day)
+
+      1,340,000 10000x Crystalline Carbonide; volume (runs): 4,278, runtime 16200.0s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+        -45,450 2.5x Helium Fuel Block; volume (runs): 300,720
+       -168,950 50.0x Cobalt; volume (runs): 19,844
+       -403,750 50.0x Cadmium; volume (runs): 30,776
+       -134,500 100x Carbon Polymers; volume (runs): 2,431
+=       429,450 per run (2,290,400 per day)
+
+      1,764,000 6000x Sylramic Fibers; volume (runs): 4,772, runtime 10800s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+       -309,600 100x Ceramic Powder; volume (runs): 1,445
+       -999,900 100x Hexite; volume (runs): 553
+=       275,400 per run (2,203,200 per day)
+
+      4,584,000 300x Plasmonic Metamaterials; volume (runs): 1,979, runtime 16200.0s
+        -90,450 5x Hydrogen Fuel Block; volume (runs): 112,067
+        -45,225 2.5x Hydrogen Fuel Block; volume (runs): 224,135
+       -159,350 50.0x Scandium; volume (runs): 14,851
+       -254,900 50.0x Vanadium; volume (runs): 25,949
+     -3,392,000 100x Neo Mercurite; volume (runs): 347
+=       412,875 per run (2,202,000 per day)
+
+      1,804,400 200x Titanium Chromide; volume (runs): 269, runtime 10800s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+       -543,900 100x Titanium; volume (runs): 8,688
+       -815,000 100x Chromium; volume (runs): 17,033
+=       264,130 per run (2,113,040 per day)
+
+      4,263,000 300x Terahertz Metamaterials; volume (runs): 1,627, runtime 21600.0s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+        -46,600 2.5x Nitrogen Fuel Block; volume (runs): 182,452
+       -279,300 50.0x Tungsten; volume (runs): 14,531
+       -429,300 50.0x Platinum; volume (runs): 37,031
+        -45,450 2.5x Helium Fuel Block; volume (runs): 300,720
+       -387,400 50.0x Mercury; volume (runs): 16,260
+     -2,244,500 50.0x Promethium; volume (runs): 10,207
+=       526,400 per run (2,105,600 per day)
+
+      1,286,000 10000x Fernite Carbide; volume (runs): 4,663, runtime 21600.0s
+        -90,450 5x Hydrogen Fuel Block; volume (runs): 112,067
+        -45,225 2.5x Hydrogen Fuel Block; volume (runs): 224,135
+       -159,350 50.0x Scandium; volume (runs): 14,851
+       -254,900 50.0x Vanadium; volume (runs): 25,949
+        -45,225 2.5x Hydrogen Fuel Block; volume (runs): 224,135
+        -59,150 50.0x Evaporite Deposits; volume (runs): 56,571
+        -74,500 50.0x Silicates; volume (runs): 54,588
+=       492,900 per run (1,971,600 per day)
+
+      1,200,000 200x Fernite Alloy; volume (runs): 449, runtime 10800s
+        -90,450 5x Hydrogen Fuel Block; volume (runs): 112,067
+       -318,700 100x Scandium; volume (runs): 7,425
+       -509,800 100x Vanadium; volume (runs): 12,975
+=       221,050 per run (1,768,400 per day)
+
+      1,533,200 200x Crystallite Alloy; volume (runs): 350, runtime 10800s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+       -337,900 100x Cobalt; volume (runs): 9,922
+       -807,500 100x Cadmium; volume (runs): 15,388
+=       220,240 per run (1,761,920 per day)
+
+      1,336,000 10000x Tungsten Carbide; volume (runs): 4,164, runtime 16200.0s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+        -46,600 2.5x Nitrogen Fuel Block; volume (runs): 182,452
+       -279,300 50.0x Tungsten; volume (runs): 14,531
+       -429,300 50.0x Platinum; volume (runs): 37,031
+       -149,900 100x Sulfuric Acid; volume (runs): 747
+=       270,900 per run (1,444,800 per day)
+
+      1,336,000 10000x Titanium Carbide; volume (runs): 4,800, runtime 16200.0s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+        -45,575 2.5x Oxygen Fuel Block; volume (runs): 188,358
+       -271,950 50.0x Titanium; volume (runs): 17,375
+       -407,500 50.0x Chromium; volume (runs): 34,067
+       -235,700 100x Silicon Diborite; volume (runs): 1,442
+=       217,325 per run (1,159,067 per day)
+
+      1,385,800 200x Vanadium Hafnite; volume (runs): 206, runtime 10800s
+        -90,450 5x Hydrogen Fuel Block; volume (runs): 112,067
+       -509,800 100x Vanadium; volume (runs): 12,975
+       -684,900 100x Hafnium; volume (runs): 15,396
+=        31,360 per run (250,880 per day)
+
+        267,600 200x Carbon Polymers; volume (runs): 1,215, runtime 10800s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+        -11,470 100x Hydrocarbons; volume (runs): 30,326
+       -149,000 100x Silicates; volume (runs): 27,294
+=         2,850 per run (22,800 per day)
+
+        370,200 200x Ceramic Powder; volume (runs): 722, runtime 10800s
+        -90,450 5x Hydrogen Fuel Block; volume (runs): 112,067
+       -118,300 100x Evaporite Deposits; volume (runs): 28,286
+       -149,000 100x Silicates; volume (runs): 27,294
+=        -6,060 per run (-48,480 per day)
+
+     12,040,000 200x Fermionic Condensates; volume (runs): 584, runtime 27000.0s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+        -45,575 2.5x Oxygen Fuel Block; volume (runs): 188,358
+       -403,750 50.0x Cadmium; volume (runs): 30,776
+       -671,500 50.0x Caesium; volume (runs): 13,592
+        -45,450 2.5x Helium Fuel Block; volume (runs): 300,720
+       -387,400 50.0x Mercury; volume (runs): 16,260
+     -3,350,000 50.0x Dysprosium; volume (runs): 9,951
+     -3,834,000 100x Fluxed Condensates; volume (runs): 102
+        -45,575 2.5x Oxygen Fuel Block; volume (runs): 188,358
+       -403,750 50.0x Cadmium; volume (runs): 30,776
+     -2,244,500 50.0x Promethium; volume (runs): 10,207
+=       -84,400 per run (-270,080 per day)
+
+        184,376 200x Sulfuric Acid; volume (runs): 374, runtime 10800s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+        -11,800 100x Atmospheric Gases; volume (runs): 42,474
+       -118,300 100x Evaporite Deposits; volume (runs): 28,286
+=       -48,143 per run (-385,142 per day)
+
+        308,000 200x Silicon Diborite; volume (runs): 721, runtime 10800s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+       -118,300 100x Evaporite Deposits; volume (runs): 28,286
+       -149,000 100x Silicates; volume (runs): 27,294
+=       -65,850 per run (-526,800 per day)
+
+      2,202,000 200x Caesarium Cadmide; volume (runs): 148, runtime 10800s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+       -807,500 100x Cadmium; volume (runs): 15,388
+     -1,343,000 100x Caesium; volume (runs): 6,796
+=      -149,750 per run (-1,198,000 per day)
+
+      1,624,800 200x Hexite; volume (runs): 276, runtime 10800s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+       -815,000 100x Chromium; volume (runs): 17,033
+       -858,600 100x Platinum; volume (runs): 18,516
+=      -223,240 per run (-1,785,920 per day)
+
+      1,613,800 200x Platinum Technite; volume (runs): 323, runtime 10800s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+       -858,600 100x Platinum; volume (runs): 18,516
+       -949,900 100x Technetium; volume (runs): 7,890
+=      -368,590 per run (-2,948,720 per day)
+
+      7,460,000 200x Dysporite; volume (runs): 54, runtime 10800s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+       -774,800 100x Mercury; volume (runs): 8,130
+     -6,700,000 100x Dysprosium; volume (runs): 4,976
+=      -478,700 per run (-3,829,600 per day)
+
+      1,012,510 200x Rolled Tungsten Alloy; volume (runs): 258, runtime 10800s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+       -558,600 100x Tungsten; volume (runs): 7,265
+       -858,600 100x Platinum; volume (runs): 18,516
+=      -548,516 per run (-4,388,124 per day)
+
+      2,896,000 200x Thulium Hafnite; volume (runs): 173, runtime 10800s
+        -90,450 5x Hydrogen Fuel Block; volume (runs): 112,067
+       -684,900 100x Hafnium; volume (runs): 15,396
+     -2,715,000 100x Thulium; volume (runs): 4,301
+=      -739,150 per run (-5,913,200 per day)
+
+      7,048,000 200x Ferrofluid; volume (runs): 96, runtime 10800s
+        -90,450 5x Hydrogen Fuel Block; volume (runs): 112,067
+       -684,900 100x Hafnium; volume (runs): 15,396
+     -6,700,000 100x Dysprosium; volume (runs): 4,976
+=      -779,750 per run (-6,238,000 per day)
+
+      1,505,200 200x Solerium; volume (runs): 74, runtime 10800s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+       -815,000 100x Chromium; volume (runs): 17,033
+     -1,343,000 100x Caesium; volume (runs): 6,796
+=      -819,210 per run (-6,553,680 per day)
+
+      4,690,000 200x Prometium; volume (runs): 60, runtime 10800s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+       -807,500 100x Cadmium; volume (runs): 15,388
+     -4,489,000 100x Promethium; volume (runs): 5,103
+=      -932,150 per run (-7,457,200 per day)
+
+      4,304,000 200x Hyperflurite; volume (runs): 119, runtime 10800s
+        -93,200 5x Nitrogen Fuel Block; volume (runs): 91,226
+       -509,800 100x Vanadium; volume (runs): 12,975
+     -4,489,000 100x Promethium; volume (runs): 5,103
+=    -1,003,200 per run (-8,025,600 per day)
+
+      4,452,000 200x Promethium Mercurite; volume (runs): 95, runtime 10800s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+       -774,800 100x Mercury; volume (runs): 8,130
+     -4,489,000 100x Promethium; volume (runs): 5,103
+=    -1,125,300 per run (-9,002,400 per day)
+
+      6,602,000 200x Fluxed Condensates; volume (runs): 51, runtime 10800s
+        -91,150 5x Oxygen Fuel Block; volume (runs): 94,179
+     -6,075,000 100x Neodymium; volume (runs): 4,537
+     -2,715,000 100x Thulium; volume (runs): 4,301
+=    -2,609,250 per run (-20,874,000 per day)
+
+      3,402,000 200x Neo Mercurite; volume (runs): 173, runtime 10800s
+        -90,900 5x Helium Fuel Block; volume (runs): 150,360
+       -774,800 100x Mercury; volume (runs): 8,130
+     -6,075,000 100x Neodymium; volume (runs): 4,537
+=    -3,708,800 per run (-29,670,400 per day)
+
