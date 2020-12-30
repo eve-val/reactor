@@ -8,18 +8,9 @@ import bravado
 from typing import Any, Dict, List, Optional, Tuple
 from bravado.client import SwaggerClient
 from eve.world import FormulaNotFound, Station, World, ItemType, Formula
+from eve.orm_util import adopt_json_for_db
 import dataclasses
 import textwrap
-
-
-def _db_json_encoder(v: Any) -> Any:
-    if type(v) == datetime.datetime:
-        return int(v.timestamp())
-    return v
-
-
-def adopt_json_for_db(src: Any) -> str:
-    return json.dumps(src, default=_db_json_encoder)
 
 
 def create_table(conn: sqlite3.Connection):

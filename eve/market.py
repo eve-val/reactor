@@ -1,15 +1,16 @@
 import dataclasses
-import logging
-import sqlite3
 import datetime
+import logging
 import math
-import bravado
 import random
+import sqlite3
 from typing import Any, Dict, List
 
+import bravado
 from bravado.client import SwaggerClient
-from eve.orm_util import dataclass_from_row
+
 from eve import world
+from eve.orm_util import adopt_json_for_db, dataclass_from_row
 
 
 @dataclasses.dataclass(frozen=True)
@@ -22,6 +23,14 @@ class ItemPrice:
 
     def is_traded(self):
         return math.isfinite(self.high_price)
+
+
+@dataclasses.dataclass(frozen=True)
+class ItemPriceWithDetails:
+    item_price: ItemPrice
+    history: List[Any]
+    buy_orders: List[Any]
+    sell_orders: List[Any]
 
 
 MIN_TOTAL_COST = 100000000
@@ -72,25 +81,47 @@ def sell_order_price(sell_orders: List[Dict[str, Any]]) -> float:
     return math.inf
 
 
-def get_market_data(api: SwaggerClient, type_id: int) -> ItemPrice:
+def get_market_orders(
+    api: SwaggerClient, type_id: int, order_type: str
+) -> List[Any]:
+    try:
+        return (
+            api.Market.get_markets_region_id_orders(
+                region_id=world.JITA_REGION_ID,
+                type_id=type_id,
+                order_type=order_type,
+            )
+            .response()
+            .result
+        )
+    except bravado.exception.HTTPNotFound:
+        return []
+
+
+def get_market_data(api: SwaggerClient, type_id: int) -> ItemPriceWithDetails:
     low_price = 0.0
     high_price = math.inf
     daily_trade_volume = 0.0
 
     try:
-        hist = (
+        history = (
             api.Market.get_markets_region_id_history(
                 region_id=world.JITA_REGION_ID, type_id=type_id
             )
             .response()
             .result
         )
-        hist = sorted(hist, key=lambda d: d["date"])
-        if len(hist) > 30:
-            hist = hist[-30:]
-        if hist:
-            daily_trade_volume = sum([d["volume"] for d in hist]) / len(hist)
-        valid_days = [d for d in hist if d["volume"] >= MIN_TOTAL_QTY]
+        history = sorted(history, key=lambda d: d["date"])
+        if len(history) > 90:
+            history = history[-90:]
+        history = list(history)
+        if len(history) > 30:
+            short = history[-30:]
+        else:
+            short = history[:]
+        if short:
+            daily_trade_volume = sum([d["volume"] for d in short]) / len(short)
+        valid_days = [d for d in short if d["volume"] >= MIN_TOTAL_QTY]
         if len(valid_days) > 10:
             low_price = BUY_ORDER_SETUP_DISCOUNT * min(
                 d["lowest"] for d in valid_days
@@ -99,60 +130,58 @@ def get_market_data(api: SwaggerClient, type_id: int) -> ItemPrice:
                 d["highest"] for d in valid_days
             )
     except bravado.exception.HTTPNotFound:
+        history = []
         pass
 
-    try:
-        buy_orders = (
-            api.Market.get_markets_region_id_orders(
-                region_id=world.JITA_REGION_ID,
-                type_id=type_id,
-                order_type="buy",
-            )
-            .response()
-            .result
-        )
-        low_price = max(low_price, buy_order_price(buy_orders))
-    except bravado.exception.HTTPNotFound:
-        pass
+    buy_orders = get_market_orders(api, type_id, "buy")
+    low_price = max(low_price, buy_order_price(buy_orders))
 
-    try:
-        sell_orders = (
-            api.Market.get_markets_region_id_orders(
-                region_id=world.JITA_REGION_ID,
-                type_id=type_id,
-                order_type="sell",
-            )
-            .response()
-            .result
-        )
-        high_price = min(high_price, sell_order_price(sell_orders))
-    except bravado.exception.HTTPNotFound:
-        pass
+    sell_orders = get_market_orders(api, type_id, "sell")
+    high_price = min(high_price, sell_order_price(sell_orders))
 
-    return ItemPrice(
-        type_id,
-        datetime.datetime.now(),
-        daily_trade_volume,
-        low_price,
-        high_price,
+    return ItemPriceWithDetails(
+        ItemPrice(
+            type_id,
+            datetime.datetime.now(),
+            daily_trade_volume,
+            low_price,
+            high_price,
+        ),
+        history,
+        buy_orders,
+        sell_orders,
     )
 
 
-def store_item_price(conn: sqlite3.Connection, ip: ItemPrice):
+def store_item_price(conn: sqlite3.Connection, ipwd: ItemPriceWithDetails):
+    ip = ipwd.item_price
     with conn:
         conn.execute(
             "REPLACE INTO eveMarket( "
             "  type_id,  last_refreshed, daily_trade_volume, "
-            "  low_price, high_price"
-            ") VALUES (?, ?, ?, ?, ?)",
+            "  low_price, high_price, history"
+            ") VALUES (?, ?, ?, ?, ?, ?)",
             (
                 ip.type_id,
                 int(ip.last_refreshed.timestamp()),
                 ip.daily_trade_volume,
                 ip.low_price,
                 ip.high_price,
+                adopt_json_for_db(ipwd.history),
             ),
         )
+        if ipwd.sell_orders or ipwd.buy_orders:
+            conn.execute(
+                "INSERT INTO eveMarketHistory("
+                "   type_id, retrieved_on, buy_orders, sell_orders) "
+                "VALUES (?, ?, ?, ?)",
+                (
+                    ip.type_id,
+                    int(ip.last_refreshed.timestamp()),
+                    adopt_json_for_db(ipwd.buy_orders),
+                    adopt_json_for_db(ipwd.sell_orders),
+                ),
+            )
 
 
 class ItemPriceCache:
@@ -171,13 +200,14 @@ class ItemPriceCache:
                 (item_type.id,),
             ).fetchone(),
         )
-        if datetime.datetime.now() - ip.last_refreshed > datetime.timedelta(
+        if datetime.datetime.now() - ip.last_refreshed <= datetime.timedelta(
             hours=random.uniform(6, 6)
         ):
-            logging.info("retriving pricing data for %s", item_type.name)
-            ip = get_market_data(self.api, item_type.id)
-            store_item_price(self.conn, ip)
-        return ip
+            return ip
+        logging.info("retriving pricing data for %s", item_type.name)
+        ipwd = get_market_data(self.api, item_type.id)
+        store_item_price(self.conn, ipwd)
+        return ipwd.item_price
 
 
 def create_table(conn: sqlite3.Connection):
@@ -187,7 +217,14 @@ def create_table(conn: sqlite3.Connection):
             "last_refreshed" INTEGER NOT NULL,
             "daily_trade_volume" REAL NOT NULL,
             "low_price" REAL NOT NULL,
-            "high_price" REAL NOT NULL
+            "high_price" REAL NOT NULL,
+            "history" JSON NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS "eveMarketHistory" (
+            "type_id" INTEGER PRIMARY KEY NOT NULL,
+            "retrieved_on" INTEGER NOT NULL,
+            "buy_orders" JSON NOT NULL,
+            "sell_orders" JSON NOT NULL
         );
         """
     conn.execute(CREATE_TABLE_SQL)
