@@ -172,7 +172,7 @@ class ItemPriceCache:
             ).fetchone(),
         )
         if datetime.datetime.now() - ip.last_refreshed > datetime.timedelta(
-            hours=random.uniform(36, 36+24)
+            hours=random.uniform(6, 6)
         ):
             logging.info("retriving pricing data for %s", item_type.name)
             ip = get_market_data(self.api, item_type.id)

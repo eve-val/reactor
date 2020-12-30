@@ -103,13 +103,13 @@ class ItemType:
 @dataclasses.dataclass(frozen=True)
 class ItemQuantity:
     item_type: ItemType
-    quantity: int
+    quantity: float
 
 
 @dataclasses.dataclass(frozen=True)
 class Formula:
     blueprint: ItemType
-    time: int
+    time: float
     output: ItemQuantity
     inputs: List[ItemQuantity]
 

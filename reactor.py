@@ -1,4 +1,7 @@
+import dataclasses
 import logging
+import itertools
+from typing import Dict, List, Optional
 
 from eve import market, services, world
 
@@ -27,23 +30,6 @@ REACTIONS = [
     46184,  # Prometium Reaction Formula
     46185,  # Thulium Hafnite Reaction Formula
     46186,  # Promethium Mercurite Reaction Formula
-    46187,  # Unrefined Vanadium Hafnite Reaction Formula
-    46188,  # Unrefined Platinum Technite Reaction Formula
-    46189,  # Unrefined Solerium Reaction Formula
-    46190,  # Unrefined Caesarium Cadmide Reaction Formula
-    46191,  # Unrefined Hexite Reaction Formula
-    46192,  # Unrefined Rolled Tungsten Alloy Reaction Formula
-    46193,  # Unrefined Titanium Chromide Reaction Formula
-    46194,  # Unrefined Fernite Alloy Reaction Formula
-    46195,  # Unrefined Crystallite Alloy Reaction Formula
-    46196,  # Unrefined Hyperflurite Reaction Formula
-    46197,  # Unrefined Ferrofluid Reaction Formula
-    46198,  # Unrefined Prometium Reaction Formula
-    46199,  # Unrefined Neo Mercurite Reaction Formula
-    46200,  # Unrefined Dysporite Reaction Formula
-    46201,  # Unrefined Fluxed Condensates Reaction Formula
-    46202,  # Unrefined Thulium Hafnite Reaction Formula
-    46203,  # Unrefined Promethium Mercurite Reaction Formula
     46204,  # Titanium Carbide Reaction Formula
     46205,  # Crystalline Carbonide Reaction Formula
     46206,  # Fernite Carbide Reaction Formula
@@ -62,36 +48,97 @@ REACTIONS = [
 ]
 
 
-def price_formula(
-    w: world.World, ipc: market.ItemPriceCache, id: int, verbose: bool = False
-):
-    blueprint = w.find_item_type(id)
-    f = w.find_formula(blueprint)
+@dataclasses.dataclass
+class PricedFormula:
+    formula: world.Formula
+    daily_volume_in_runs: float
+    profit: float
 
-    p = ipc.find_item_price(f.output.item_type)
-    amt = p.low_price * f.output.quantity
-    total = amt
-    if verbose:
-        print(f.time)
+    @property
+    def profit_per_day(self):
+        return 24.0 * 60 * 60 / self.formula.time * self.profit
+
+    def print(self, w: world.World, ipc: market.ItemPriceCache):
+        f = self.formula
+        p = ipc.find_item_price(f.output.item_type)
+        amt = p.low_price * f.output.quantity
         print(
             f"{amt:15,.0f} {f.output.quantity}x {f.output.item_type.name}; "
-            f"volume (runs): {p.daily_trade_volume / f.output.quantity:,.0f}"
+            f"volume (runs): {self.daily_volume_in_runs:,.0f}, "
+            f"runtime {f.time}s"
         )
+
+        for inp in f.inputs:
+            p = ipc.find_item_price(inp.item_type)
+            amt = -p.high_price * inp.quantity
+            print(
+                f"{amt:15,.0f} {inp.quantity}x {inp.item_type.name}; "
+                f"volume (runs): {p.daily_trade_volume / inp.quantity:,.0f}"
+            )
+        print(
+            f"= {self.profit:13,.0f} per run "
+            f"({self.profit_per_day:,.0f} per day)"
+        )
+
+
+SALES_TAX_DISCOUNT = 0.95
+
+
+def price_formula(
+    ipc: market.ItemPriceCache, f: world.Formula, verbose: bool = False
+) -> PricedFormula:
+    p = ipc.find_item_price(f.output.item_type)
+    daily_volume_in_runs = p.daily_trade_volume / f.output.quantity
+    amt = p.low_price * f.output.quantity
+    total = amt * SALES_TAX_DISCOUNT
 
     for inp in f.inputs:
         p = ipc.find_item_price(inp.item_type)
         amt = -p.high_price * inp.quantity
         total += amt
-        if verbose:
-            print(
-                f"{amt:15,.0f} {inp.quantity}x {inp.item_type.name}; "
-                f"volume (runs): {p.daily_trade_volume / inp.quantity:,.0f}"
+
+    return PricedFormula(f, daily_volume_in_runs, total)
+
+
+def fold_formula_with(
+    f: world.Formula, to_fold: Dict[int, world.Formula]
+) -> world.Formula:
+    if not to_fold:
+        return f
+    new_items = []
+    total_time = f.time
+    for it in f.inputs:
+        if it.item_type.id not in to_fold:
+            new_items.append(it)
+            continue
+        sub_f = to_fold[it.item_type.id]
+        multiplier = float(it.quantity) / sub_f.output.quantity
+        total_time += multiplier * sub_f.time
+        for s_it in sub_f.inputs:
+            new_items.append(
+                world.ItemQuantity(s_it.item_type, s_it.quantity * multiplier)
             )
+    return world.Formula(f.blueprint, total_time, f.output, new_items)
 
-    if verbose:
-        print(f"= {total:13,.0f} per run")
 
-    return total
+def powerset(iterable):
+    s = list(iterable)
+    return itertools.chain.from_iterable(
+        itertools.combinations(s, r) for r in range(len(s) + 1)
+    )
+
+
+def fold_formula(
+    f: world.Formula, others: Dict[int, world.Formula]
+) -> List[world.Formula]:
+    foldable = [
+        others[it.item_type.id] for it in f.inputs if it.item_type.id in others
+    ]
+    r = []
+    for subset in powerset(foldable):
+        to_fold = {it.output.item_type.id: it for it in subset}
+        r.append(fold_formula_with(f, to_fold))
+    return r
 
 
 def print_industry_tree(w: world.World, padding: int, it: world.ItemType):
@@ -113,10 +160,20 @@ def main():
     serv = services.Services()
     w = world.World(serv.reference_db)
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
-    profits = [(price_formula(w, ipc, r), r) for r in REACTIONS]
-    profits.sort(reverse=True)
-    for _, r in profits:
-        price_formula(w, ipc, r, verbose=True)
+
+    formulas = [w.find_formula(w.find_item_type(id)) for id in REACTIONS]
+    formulas_by_output = {f.output.item_type.id: f for f in formulas}
+    priced = []
+    for f in formulas:
+        folded = [
+            price_formula(ipc, f) for f in fold_formula(f, formulas_by_output)
+        ]
+        folded.sort(key=lambda p: p.profit_per_day, reverse=True)
+        priced.append(folded[0])
+    priced.sort(key=lambda p: p.profit_per_day, reverse=True)
+    for p in priced:
+        p.print(w, ipc)
+        print()
 
 
 if __name__ == "__main__":
