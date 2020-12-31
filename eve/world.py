@@ -69,6 +69,9 @@ class ItemType:
     category: str = dataclasses.field(
         default=UNKNOWN_NAME, hash=False, compare=False
     )
+    volume_m3: float = dataclasses.field(
+        default=0.0, hash=False, compare=False
+    )
 
     @property
     def full_name(self) -> str:
@@ -152,7 +155,7 @@ class World:
         cursor = self.conn.execute(
             "SELECT "
             "  T.typeID id, T.typeName name, G.groupName 'group', "
-            "  C.categoryName category "
+            "  C.categoryName category, T.volume volume_m3 "
             "FROM invTypes T JOIN invGroups G ON T.groupID = G.groupID "
             "  JOIN invCategories C ON G.categoryID = C.categoryID "
             "WHERE T.typeID = ?",
@@ -164,7 +167,7 @@ class World:
         cursor = self.conn.execute(
             "SELECT "
             "  T.typeID id, T.typeName name, G.groupName 'group', "
-            "  C.categoryName category "
+            "  C.categoryName category, T.volume volume_m3 "
             "FROM invTypes T JOIN invGroups G ON T.groupID = G.groupID "
             "  JOIN invCategories C ON G.categoryID = C.categoryID "
             "WHERE T.typeName = ?",
@@ -186,6 +189,23 @@ class World:
         if not row:
             return None
         return self.find_item_type(row[0])
+
+    def find_material_uses(self, mat: ItemType) -> List[Formula]:
+        cursor = self.conn.execute(
+            "SELECT typeID FROM industryActivityMaterials "
+            "WHERE materialTypeID = ? AND activityID IN (?, ?) "
+            "  AND typeID != 45732",  # "Test Reaction".
+            (
+                mat.id,
+                INDUSTRY_ACTIVITY_MANUFACTURING,
+                INDUSTRY_ACTIVITY_REACTIONS,
+            ),
+        )
+        blueprint_ids = set(row[0] for row in cursor)
+        return [
+            self.find_formula(self.find_item_type(bpid))
+            for bpid in blueprint_ids
+        ]
 
     def find_formula(self, blueprint: ItemType) -> Formula:
         if not blueprint.is_blueprint:
@@ -225,29 +245,3 @@ class World:
         for row in mat_rows:
             inputs.append(ItemQuantity(self.find_item_type(row[0]), row[1]))
         return Formula(blueprint, time, output, inputs)
-
-
-10000001,
-10000002,
-10000016,
-10000020,
-10000028,
-10000030,
-10000032,
-10000033,
-10000036,
-10000037,
-10000038,
-10000041,
-10000042,
-10000043,
-10000044,
-10000048,
-10000049,
-10000052,
-10000054,
-10000064,
-10000065,
-10000067,
-10000068,
-10000069,

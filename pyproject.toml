@@ -9,6 +9,7 @@ contractor = "contractor:main"
 reactor = "reactor:reactor"
 history = "reactor:history"
 shopper = "reactor:shopper"
+test = "reactor:test"
 
 [tool.poetry.dependencies]
 python = "^3.8"

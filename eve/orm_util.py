@@ -15,20 +15,21 @@ def dataclass_from_row(
     vals: Dict[str, Any] = {}
     for f in dataclasses.fields(cls):
         v: Any = row[f.name]
-        if f.type is datetime.datetime:
-            v = datetime.datetime.fromtimestamp(v)
-        elif f.type is datetime.date:
-            v = datetime.date.fromisoformat(v)
-        else:
-            v = f.type(v)
+        if type(v) is not f.type:
+            if f.type is datetime.datetime:
+                v = datetime.datetime.fromtimestamp(v)
+            elif f.type is datetime.date:
+                v = datetime.date.fromisoformat(v)
+            else:
+                v = f.type(v)
         vals[f.name] = v
     return cls(**vals)
 
 
 def _db_json_encoder(v: Any) -> Any:
-    if type(v) == datetime.datetime:
+    if type(v) is datetime.datetime:
         return int(v.timestamp())
-    if type(v) == datetime.date:
+    if type(v) is datetime.date:
         return v.isoformat()
     return v
 

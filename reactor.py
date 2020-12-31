@@ -52,6 +52,8 @@ REACTIONS = [
 ItemPriceDict = Dict[world.ItemType, market.ItemPrice]
 ItemPriceHistoryDict = Dict[world.ItemType, List[market.HistoricalItemPrice]]
 
+SYSTEM_COST_FACTOR = 0.02
+
 
 @dataclasses.dataclass
 class PricedFormula:
@@ -75,16 +77,23 @@ class PricedFormula:
             f"runtime {f.time}s"
         )
 
+        input_amt = 0.0
+        input_m3 = 0.0
         for inp in f.inputs:
             p = ipc.find_item_price(inp.item_type)
             amt = -p.high_price * inp.quantity
+            input_amt += amt
+            input_m3 += inp.item_type.volume_m3 * inp.quantity
             print(
                 f"{amt:15,.0f} {inp.quantity}x {inp.item_type.name}; "
                 f"volume (runs): {p.daily_trade_volume / inp.quantity:,.0f}"
             )
+        print(f"{input_amt * SYSTEM_COST_FACTOR:15,.0f} job cost")
+        output_m3 = f.output.quantity * f.output.item_type.volume_m3
         print(
             f"= {self.profit:13,.0f} per run "
-            f"({self.profit_per_day:,.0f} per day)"
+            f"({self.profit_per_day:,.0f} per day) "
+            f" m3: import {input_m3:,.0f} export {output_m3:,.0f}"
         )
 
 
@@ -92,17 +101,19 @@ SALES_TAX_DISCOUNT = 0.95
 
 
 def price_formula(
-    ipc: ItemPriceDict, name: str, f: world.Formula
+    ipc: ItemPriceDict, name: str, f: world.Formula, me=1.0
 ) -> PricedFormula:
     p = ipc[f.output.item_type]
     daily_volume_in_runs = p.daily_trade_volume / f.output.quantity
     amt = p.low_price * f.output.quantity
     total = amt * SALES_TAX_DISCOUNT
 
+    input_amt = 0.0
     for inp in f.inputs:
         p = ipc[inp.item_type]
-        amt = -p.high_price * inp.quantity
-        total += amt
+        qty = max(1.0, me * inp.quantity)
+        input_amt += p.high_price * qty
+    total -= input_amt * (1 + SYSTEM_COST_FACTOR)
 
     return PricedFormula(name, f, daily_volume_in_runs, total)
 
@@ -246,10 +257,7 @@ def history():
         for name, f in all_formulas:
             pf = price_formula(price_slice, name, f)
             results[name].append(pf.profit_per_day)
-    results = [
-        (name, profits)
-        for name, profits in results.items()
-    ]
+    results = [(name, profits) for name, profits in results.items()]
     results.sort(key=lambda x: profit_key(x[1]), reverse=True)
     seen_products = set()
     for name, r in results:
@@ -275,8 +283,9 @@ def reactor():
             price_formula(prices, name, f)
             for name, f in fold_formula(f, formulas_by_output)
         ]
-        folded.sort(key=lambda p: p.profit_per_day, reverse=True)
-        priced.append(folded[0])
+        # folded.sort(key=lambda p: p.profit_per_day, reverse=True)
+        # priced.append(folded[0])
+        priced.extend(folded)
     priced.sort(key=lambda p: p.profit_per_day, reverse=True)
     for p in priced:
         p.print(w, ipc)
@@ -290,18 +299,50 @@ def shopper():
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
     f = w.find_formula(w.find_item_type(46210))
-    qty = 500
+    qty = 600
+    total = 0.0
+    total_m3 = 0.0
     for i in f.inputs:
-        p = ipc.get_price_history(i.item_type)
-        p = p[-15:]
-        print(f"{i.item_type.name} x{i.quantity * qty}")
-        print("  v:" + " ".join(f"{d.volume:8,.0f}" for d in p))
+        p = ipc.find_item_price(i.item_type)
+        ph = ipc.get_price_history(i.item_type)
+        ph = ph[-15:]
+        amt = qty * i.quantity * p.high_price
+        total += amt
+        total_m3 += qty * i.quantity * i.item_type.volume_m3
+        print(
+            f"{i.item_type.name} x{i.quantity * qty} "
+            f"buy @{p.high_price:,.0f} {amt:,.0f}"
+        )
+        print("  v:" + " ".join(f"{d.volume:8,.0f}" for d in ph))
         print("=" * (9 * 15 + 3))
-        print("  h:" + " ".join(f"{d.highest:8,.0f}" for d in p))
-        print("  a:" + " ".join(f"{d.average:8,.0f}" for d in p))
-        print("  l:" + " ".join(f"{d.lowest:8,.0f}" for d in p))
+        print("  h:" + " ".join(f"{d.highest:8,.0f}" for d in ph))
+        print("  a:" + " ".join(f"{d.average:8,.0f}" for d in ph))
+        print("  l:" + " ".join(f"{d.lowest:8,.0f}" for d in ph))
         print()
+    print(f"Total: {total:,.0f} ISK, {total_m3:,.0f} m3")
+    print("Multibuy:")
+    for i in f.inputs:
+        print(f"{qty * i.quantity}x {i.item_type.name}")
+    print()
+
+
+def test():
+    logging.basicConfig(level=logging.INFO)
+    serv = services.Services()
+    w = world.World(serv.reference_db)
+    ipc = market.ItemPriceCache(serv.store_db, serv.api)
+
+    mat = w.find_item_type_by_name("Sylramic Fibers")
+    fs = w.find_material_uses(mat)
+    fs = [f for f in fs if not f.output.item_type.is_capital]
+    prices = get_all_prices(ipc, get_all_items(fs))
+    priced = [
+        price_formula(prices, f.output.item_type.name, f, me=0.9) for f in fs
+    ]
+    priced.sort(key=lambda f: f.daily_volume_in_runs, reverse=True)
+    for p in priced:
+        p.print(w, ipc)
 
 
 if __name__ == "__main__":
-    reactor()
+    shopper()
