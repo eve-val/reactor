@@ -283,5 +283,25 @@ def reactor():
         print()
 
 
+def shopper():
+    logging.basicConfig(level=logging.INFO)
+    serv = services.Services()
+    w = world.World(serv.reference_db)
+    ipc = market.ItemPriceCache(serv.store_db, serv.api)
+
+    f = w.find_formula(w.find_item_type(46210))
+    qty = 500
+    for i in f.inputs:
+        p = ipc.get_price_history(i.item_type)
+        p = p[-15:]
+        print(f"{i.item_type.name} x{i.quantity * qty}")
+        print("  v:" + " ".join(f"{d.volume:8,.0f}" for d in p))
+        print("=" * (9 * 15 + 3))
+        print("  h:" + " ".join(f"{d.highest:8,.0f}" for d in p))
+        print("  a:" + " ".join(f"{d.average:8,.0f}" for d in p))
+        print("  l:" + " ".join(f"{d.lowest:8,.0f}" for d in p))
+        print()
+
+
 if __name__ == "__main__":
     reactor()

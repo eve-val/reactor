@@ -8,6 +8,7 @@ authors = ["Igor Nazarenko <igor.n.nazarenko@gmail.com>"]
 contractor = "contractor:main"
 reactor = "reactor:reactor"
 history = "reactor:history"
+shopper = "reactor:shopper"
 
 [tool.poetry.dependencies]
 python = "^3.8"
