@@ -164,7 +164,7 @@ class World:
         return dataclass_from_row(ItemType, cursor.fetchone())
 
     def find_item_type_by_name(self, name: str) -> ItemType:
-        cursor = self.conn.execute(
+        row = self.conn.execute(
             "SELECT "
             "  T.typeID id, T.typeName name, G.groupName 'group', "
             "  C.categoryName category, T.volume volume_m3 "
@@ -172,8 +172,10 @@ class World:
             "  JOIN invCategories C ON G.categoryID = C.categoryID "
             "WHERE T.typeName = ?",
             (name,),
-        )
-        return dataclass_from_row(ItemType, cursor.fetchone())
+        ).fetchone()
+        if not row:
+            raise ValueError(f"item type '{name}' not found")
+        return dataclass_from_row(ItemType, row)
 
     def find_blueprint(self, item: ItemType) -> Optional[ItemType]:
         row = self.conn.execute(

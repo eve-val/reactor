@@ -8,7 +8,6 @@ from eve import market, services, world
 
 DB_FILE_NAME = "/home/inazarenko/src/eve/data/db.sqlite"
 
-
 REACTIONS = [
     46166,  # Caesarium Cadmide Reaction Formula
     46167,  # Carbon Polymers Reaction Formula
@@ -48,6 +47,19 @@ REACTIONS = [
     46218,  # Nonlinear Metamaterials Reaction Formula
 ]
 
+# Local materials:
+# =========================================
+# Neodymium (64)
+# Thulium (64)
+# Caesium (32)
+# Chromium (16)
+# Cadmium (16)
+# Tungsten/Titanium/Scandium (8)
+# Evaporite/Silicates/Hydrocarbons (4)
+# When NSH moves out:
+# Scandium
+# Platinum
+# Promethium
 
 ItemPriceDict = Dict[world.ItemType, market.ItemPrice]
 ItemPriceHistoryDict = Dict[world.ItemType, List[market.HistoricalItemPrice]]
@@ -61,13 +73,21 @@ class PricedFormula:
     formula: world.Formula
     daily_volume_in_runs: float
     profit: float
+    input_cost: float
+
+    @property
+    def runs_per_day(self):
+        return 24.0 * 60 * 60 / self.formula.time
 
     @property
     def profit_per_day(self):
-        return 24.0 * 60 * 60 / self.formula.time * self.profit
+        return self.runs_per_day * self.profit
 
     def print(self, w: world.World, ipc: market.ItemPriceCache):
-        print(self.name)
+        print(
+            f"{self.name}  ---  {self.profit_per_day:,.0f}/day at "
+            f"{self.profit / self.input_cost * 100:.1f}%"
+        )
         f = self.formula
         p = ipc.find_item_price(f.output.item_type)
         amt = p.low_price * f.output.quantity
@@ -89,11 +109,16 @@ class PricedFormula:
                 f"volume (runs): {p.daily_trade_volume / inp.quantity:,.0f}"
             )
         print(f"{input_amt * SYSTEM_COST_FACTOR:15,.0f} job cost")
-        output_m3 = f.output.quantity * f.output.item_type.volume_m3
+        input_m3 *= self.runs_per_day
+        output_m3 = (
+            self.runs_per_day
+            * f.output.quantity
+            * f.output.item_type.volume_m3
+        )
         print(
-            f"= {self.profit:13,.0f} per run "
-            f"({self.profit_per_day:,.0f} per day) "
-            f" m3: import {input_m3:,.0f} export {output_m3:,.0f}"
+            f"= {self.profit:13,.0f} per run; "
+            f"per day ISK: {self.profit_per_day:,.0f}; "
+            f"m3: import {input_m3:,.0f}, export {output_m3:,.0f}"
         )
 
 
@@ -113,9 +138,10 @@ def price_formula(
         p = ipc[inp.item_type]
         qty = max(1.0, me * inp.quantity)
         input_amt += p.high_price * qty
-    total -= input_amt * (1 + SYSTEM_COST_FACTOR)
+    input_amt *= 1 + SYSTEM_COST_FACTOR
+    total -= input_amt
 
-    return PricedFormula(name, f, daily_volume_in_runs, total)
+    return PricedFormula(name, f, daily_volume_in_runs, total, input_amt)
 
 
 def fold_formula_with(
@@ -137,7 +163,7 @@ def fold_formula_with(
                 world.ItemQuantity(s_it.item_type, s_it.quantity * multiplier)
             )
     names = [it.output.item_type.name for it in to_fold.values()]
-    sub_names = ", ".join(sorted(names))
+    sub_names = "/".join(sorted(names))
     name = f"{f.output.item_type.name}[{sub_names}]"
     return name, world.Formula(f.blueprint, total_time, f.output, new_items)
 
@@ -262,8 +288,8 @@ def history():
     seen_products = set()
     for name, r in results:
         product = name.split("[")[0]
-        if product in seen_products:
-            continue
+        # if product in seen_products:
+        #     continue
         seen_products.add(product)
         print(name + ", " + ", ".join(f"{x:.0f}" for x in r))
 
@@ -286,10 +312,26 @@ def reactor():
         # folded.sort(key=lambda p: p.profit_per_day, reverse=True)
         # priced.append(folded[0])
         priced.extend(folded)
-    priced.sort(key=lambda p: p.profit_per_day, reverse=True)
+    priced.sort(key=lambda p: (p.profit / p.input_cost), reverse=True)
     for p in priced:
         p.print(w, ipc)
         print()
+
+
+def get_formula_for_item_name(w: world.World, item: str) -> world.Formula:
+    return w.find_formula(w.find_blueprint(w.find_item_type_by_name(item)))
+
+
+def name_to_formula(w: world.World, name: str) -> world.Formula:
+    main_name = name.split("[")[0].strip()
+    main_formula = get_formula_for_item_name(w, main_name)
+    if main_name == name:
+        return main_formula
+    mats_names = name[len(main_name) :].strip("[]").split("/")
+    mats = [get_formula_for_item_name(w, m) for m in mats_names]
+    return fold_formula_with(
+        main_formula, {m.output.item_type.id: m for m in mats}
+    )[1]
 
 
 def shopper():
@@ -298,8 +340,9 @@ def shopper():
     w = world.World(serv.reference_db)
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
-    f = w.find_formula(w.find_item_type(46210))
-    qty = 600
+    name = "Sylramic Fibers[Ceramic Powder/Hexite]"
+    f = name_to_formula(w, name)
+    qty = 800
     total = 0.0
     total_m3 = 0.0
     for i in f.inputs:
@@ -322,7 +365,7 @@ def shopper():
     print(f"Total: {total:,.0f} ISK, {total_m3:,.0f} m3")
     print("Multibuy:")
     for i in f.inputs:
-        print(f"{qty * i.quantity}x {i.item_type.name}")
+        print(f"{qty * i.quantity:.0f}x {i.item_type.name}")
     print()
 
 
@@ -331,15 +374,75 @@ def test():
     serv = services.Services()
     w = world.World(serv.reference_db)
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
-
-    mat = w.find_item_type_by_name("Sylramic Fibers")
-    fs = w.find_material_uses(mat)
-    fs = [f for f in fs if not f.output.item_type.is_capital]
-    prices = get_all_prices(ipc, get_all_items(fs))
-    priced = [
-        price_formula(prices, f.output.item_type.name, f, me=0.9) for f in fs
+    # Direct list of items
+    items = [
+        # Weapons
+        "Rapid Light Missile Launcher II",
+        "720mm Howitzer Artillery II",
+        "Heavy Missile Launcher II",
+        "Heavy Assault Missile Launcher II",
+        "Mega Pulse Laser II",
+        "425mm AutoCannon II",
+        "Small Focused Beam Laser II",
+        # Drones
+        "Warrior II",
+        "Acolyte II",
+        "Hornet II",
+        "Hobgoblin II",
+        "Hammerhead II",
+        "Infiltrator II",
+        "Valkyrie II",
+        "Ogre II",
+        # Tank
+        "Large Shield Extender II",
+        "Medium Shield Extender II",
+        "Multispectrum Shield Hardener II",
+        "Large Shield Booster II",
+        "Nanofiber Internal Structure II",
+        "Damage Control II",
+        "Assault Damage Control II",
+        "Medium Armor Repairer II",
+        "Multispectrum Energized Membrane II",
+        "Shield Power Relay II",
+        # Eng. and misc
+        "Co-Processor II",
+        "Warp Disruptor II",
+        "Stasis Webifier II",
+        "Warp Scrambler II",
+        "Medium Capacitor Booster II",
+        # Damage mods
+        "Drone Damage Amplifier II",
+        "Heat Sink II",
+        "Gyrostabilizer II",
+        "Ballistic Control System II",
+        "Magnetic Field Stabilizer II",
+        "Tracking Enhancer II",
+        # Rigs
+        "Medium Core Defense Field Purger I",
+        "Medium Core Defense Field Purger II",
+        "Medium Core Defense Field Extender II",
+        "Medium EM Shield Reinforcer II",
+        "Medium Thermal Shield Reinforcer II",
+        "Medium Hydraulic Bay Thrusters II",
+        "Medium Rocket Fuel Cache Partition II",
+        "Medium Energy Locus Coordinator II",
+        "Medium Hyperspatial Velocity Optimizer II",
+        "Small Energy Locus Coordinator II",
+        # Fuel
+        "Helium Fuel Block",
+        "Hydrogen Fuel Block",
+        "Nitrogen Fuel Block",
+        "Oxygen Fuel Block",
     ]
-    priced.sort(key=lambda f: f.daily_volume_in_runs, reverse=True)
+
+    fs = [get_formula_for_item_name(w, item) for item in items]
+    # All formulas that use a material
+    # mat = w.find_item_type_by_name("Sylramic Fibers")
+    # fs = w.find_material_uses(mat)
+    # fs = [f for f in fs if not f.output.item_type.is_capital]
+    prices = get_all_prices(ipc, get_all_items(fs))
+    priced = [price_formula(prices, f.output.item_type.name, f) for f in fs]
+    priced.sort(key=lambda f: (f.profit / f.input_cost), reverse=True)
     for p in priced:
         p.print(w, ipc)
 
