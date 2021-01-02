@@ -40,6 +40,7 @@ JITA_4_4_STATION_ID = 60003760
 
 # Activity IDs are used in industry-activity tables. See ramActivities.csv.
 INDUSTRY_ACTIVITY_MANUFACTURING = 1
+INDUSTRY_ACTIVITY_INVENTION = 8
 INDUSTRY_ACTIVITY_REACTIONS = 11
 
 UNKNOWN_NAME = "<unknown>"
@@ -121,11 +122,12 @@ class Formula:
     time: float
     output: ItemQuantity
     inputs: List[ItemQuantity]
+    probability: float = 1.0
 
     def pretty_str(self) -> str:
         return (
             f"{self.output.quantity}x {self.output.item_type.name} "
-            f"in {self.time}s from:\n"
+            f"in {self.time}s ({self.probability * 100:.0f}%) from:\n"
             + "\n".join(
                 f"  {i.quantity}x {i.item_type.name}" for i in self.inputs
             )
@@ -209,14 +211,9 @@ class World:
             for bpid in blueprint_ids
         ]
 
-    def find_formula(self, blueprint: ItemType) -> Formula:
-        if not blueprint.is_blueprint:
-            raise ValueError(f"{blueprint.name} is not a blueprint")
-        activity_id = (
-            INDUSTRY_ACTIVITY_REACTIONS
-            if blueprint.is_reaction_blueprint
-            else INDUSTRY_ACTIVITY_MANUFACTURING
-        )
+    def _read_formula_time(
+        self, blueprint: ItemType, activity_id: int
+    ) -> float:
         row = self.conn.execute(
             "SELECT time FROM industryActivity "
             "WHERE typeID = ? AND activityID = ?",
@@ -226,7 +223,24 @@ class World:
             raise FormulaNotFound(
                 f"{blueprint.full_name} not found in industryActivities"
             )
-        time = row[0]
+        return row[0]
+
+    def _read_formula_inputs(
+        self, blueprint: ItemType, activity_id: int
+    ) -> List[ItemQuantity]:
+        mat_rows = self.conn.execute(
+            "SELECT materialTypeID, quantity FROM industryActivityMaterials "
+            "WHERE typeID = ? AND activityID = ?",
+            (blueprint.id, activity_id),
+        )
+        inputs = []
+        for row in mat_rows:
+            inputs.append(ItemQuantity(self.find_item_type(row[0]), row[1]))
+        return inputs
+
+    def _read_formula_output(
+        self, blueprint: ItemType, activity_id: int
+    ) -> ItemQuantity:
         row = self.conn.execute(
             "SELECT productTypeID, quantity FROM industryActivityProducts "
             "WHERE typeID = ? AND activityID = ?",
@@ -237,13 +251,53 @@ class World:
                 f"{blueprint.name} not found in industryActivityProducts"
             )
         productTypeID, quantity = row
-        output = ItemQuantity(self.find_item_type(productTypeID), quantity)
-        mat_rows = self.conn.execute(
-            "SELECT materialTypeID, quantity FROM industryActivityMaterials "
-            "WHERE typeID = ? AND activityID = ?",
-            (blueprint.id, activity_id),
+        return ItemQuantity(self.find_item_type(productTypeID), quantity)
+
+    def find_formula(self, blueprint: ItemType) -> Formula:
+        if not blueprint.is_blueprint:
+            raise ValueError(f"{blueprint.name} is not a blueprint")
+        activity_id = (
+            INDUSTRY_ACTIVITY_REACTIONS
+            if blueprint.is_reaction_blueprint
+            else INDUSTRY_ACTIVITY_MANUFACTURING
         )
-        inputs = []
-        for row in mat_rows:
-            inputs.append(ItemQuantity(self.find_item_type(row[0]), row[1]))
+        time = self._read_formula_time(blueprint, activity_id)
+        output = self._read_formula_output(blueprint, activity_id)
+        inputs = self._read_formula_inputs(blueprint, activity_id)
         return Formula(blueprint, time, output, inputs)
+
+    def find_invention_formula(
+        self, output_blueprint: ItemType
+    ) -> Optional[Formula]:
+        if not output_blueprint.is_blueprint:
+            raise ValueError(f"{output_blueprint.name} is not a blueprint")
+        row = self.conn.execute(
+            "SELECT typeID, quantity FROM industryActivityProducts "
+            "WHERE productTypeID = ? AND activityID = ?",
+            (output_blueprint.id, INDUSTRY_ACTIVITY_INVENTION),
+        ).fetchone()
+        if not row:
+            return None
+        input_blueprint = self.find_item_type(row[0])
+        output = ItemQuantity(output_blueprint, row[1])
+        time = self._read_formula_time(
+            input_blueprint, INDUSTRY_ACTIVITY_INVENTION
+        )
+        inputs = self._read_formula_inputs(
+            input_blueprint, INDUSTRY_ACTIVITY_INVENTION
+        )
+        row = self.conn.execute(
+            "SELECT probability FROM industryActivityProbabilities "
+            "WHERE typeID = ? AND productTypeID = ? AND activityID = ?",
+            (
+                input_blueprint.id,
+                output_blueprint.id,
+                INDUSTRY_ACTIVITY_INVENTION,
+            ),
+        ).fetchone()
+        if not row:
+            raise FormulaNotFound(
+                f"{output_blueprint.name} not found in "
+                "industryActivityProbabilities"
+            )
+        return Formula(output_blueprint, time, output, inputs, float(row[0]))

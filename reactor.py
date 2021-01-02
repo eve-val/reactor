@@ -2,7 +2,7 @@ import dataclasses
 import datetime
 import logging
 import itertools
-from typing import Any, DefaultDict, Dict, Iterable, List, Set, Tuple
+from typing import Any, Callable, Dict, Iterable, List, Set, Tuple
 
 from eve import market, services, world
 
@@ -61,7 +61,7 @@ REACTIONS = [
 # Platinum
 # Promethium
 
-ItemPriceDict = Dict[world.ItemType, market.ItemPrice]
+ItemPriceSource = Callable[[world.ItemType], market.ItemPrice]
 ItemPriceHistoryDict = Dict[world.ItemType, List[market.HistoricalItemPrice]]
 
 SYSTEM_COST_FACTOR = 0.02
@@ -126,16 +126,16 @@ SALES_TAX_DISCOUNT = 0.95
 
 
 def price_formula(
-    ipc: ItemPriceDict, name: str, f: world.Formula, me=1.0
+    ips: ItemPriceSource, name: str, f: world.Formula, me=1.0
 ) -> PricedFormula:
-    p = ipc[f.output.item_type]
+    p = ips(f.output.item_type)
     daily_volume_in_runs = p.daily_trade_volume / f.output.quantity
     amt = p.low_price * f.output.quantity
     total = amt * SALES_TAX_DISCOUNT
 
     input_amt = 0.0
     for inp in f.inputs:
-        p = ipc[inp.item_type]
+        p = ips(inp.item_type)
         qty = max(1.0, me * inp.quantity)
         input_amt += p.high_price * qty
     input_amt *= 1 + SYSTEM_COST_FACTOR
@@ -220,12 +220,6 @@ def get_all_items(formulas: List[world.Formula]) -> Set[world.ItemType]:
     return r
 
 
-def get_all_prices(
-    ipc: market.ItemPriceCache, items: Iterable[world.ItemType]
-) -> ItemPriceDict:
-    return {it: ipc.find_item_price(it) for it in items}
-
-
 def get_all_price_histories(
     ipc: market.ItemPriceCache, items: Iterable[world.ItemType]
 ) -> ItemPriceHistoryDict:
@@ -234,7 +228,7 @@ def get_all_price_histories(
 
 def get_price_snapshot(
     hist: ItemPriceHistoryDict, d: datetime.date
-) -> ItemPriceDict:
+) -> ItemPriceSource:
     r = {}
     last_updated = datetime.datetime(d.year, d.month, d.day)
     time_radius = datetime.timedelta(days=2)
@@ -248,7 +242,7 @@ def get_price_snapshot(
         hi = 1.05 * min(p.highest for p in price_slice)
         vol = sum(p.volume for p in price_slice) / len(price_slice)
         r[it] = market.ItemPrice(it.id, last_updated, vol, lo, hi)
-    return r
+    return lambda it: r[it]
 
 
 def get_common_dates(prices: ItemPriceHistoryDict) -> List[datetime.date]:
@@ -301,12 +295,11 @@ def reactor():
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
     formulas = [w.find_formula(w.find_item_type(id)) for id in REACTIONS]
-    prices = get_all_prices(ipc, get_all_items(formulas))
     formulas_by_output = {f.output.item_type.id: f for f in formulas}
     priced = []
     for f in formulas:
         folded = [
-            price_formula(prices, name, f)
+            price_formula(lambda it: ipc.find_item_price(it), name, f)
             for name, f in fold_formula(f, formulas_by_output)
         ]
         # folded.sort(key=lambda p: p.profit_per_day, reverse=True)
@@ -435,13 +428,24 @@ def test():
         "Oxygen Fuel Block",
     ]
 
+    # Formulas for items assuming T2 BP exists
     fs = [get_formula_for_item_name(w, item) for item in items]
     # All formulas that use a material
     # mat = w.find_item_type_by_name("Sylramic Fibers")
     # fs = w.find_material_uses(mat)
     # fs = [f for f in fs if not f.output.item_type.is_capital]
-    prices = get_all_prices(ipc, get_all_items(fs))
-    priced = [price_formula(prices, f.output.item_type.name, f) for f in fs]
+    # Invention cost (not really correct)
+    # fs = [
+    #     w.find_invention_formula(w.find_blueprint(w.find_item_type_by_name(n)))
+    #     for n in items
+    # ]
+    # fs = [f for f in fs if f]
+    priced = [
+        price_formula(
+            lambda it: ipc.find_item_price(it), f.output.item_type.name, f
+        )
+        for f in fs
+    ]
     priced.sort(key=lambda f: (f.profit / f.input_cost), reverse=True)
     for p in priced:
         p.print(w, ipc)
