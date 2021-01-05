@@ -334,6 +334,7 @@ def shopper():
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
     name = "Sylramic Fibers[Ceramic Powder/Hexite]"
+    # name = "Phenolic Composites"
     f = name_to_formula(w, name)
     qty = 800
     total = 0.0
