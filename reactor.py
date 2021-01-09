@@ -327,6 +327,18 @@ def name_to_formula(w: world.World, name: str) -> world.Formula:
     )[1]
 
 
+def print_price_history(ph: List[market.HistoricalItemPrice]):
+    ph = ph[-15:]
+    if ph[-1].volume > 1e6:
+        print("  v:" + " ".join(f"{d.volume/1000:8,.0f}K" for d in ph))
+    else:
+        print("  v:" + " ".join(f"{d.volume:9,.0f}" for d in ph))
+    print("=" * (10 * 15 + 3))
+    print("  h:" + " ".join(f"{d.highest:9,.0f}" for d in ph))
+    print("  a:" + " ".join(f"{d.average:9,.0f}" for d in ph))
+    print("  l:" + " ".join(f"{d.lowest:9,.0f}" for d in ph))
+
+
 def shopper():
     logging.basicConfig(level=logging.INFO)
     serv = services.Services()
@@ -334,15 +346,19 @@ def shopper():
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
     name = "Sylramic Fibers[Ceramic Powder/Hexite]"
+    # name = "Sylramic Fibers[Ceramic Powder]"
     # name = "Phenolic Composites"
     f = name_to_formula(w, name)
-    qty = 800
+
+    print(f.output.item_type.name)
+    print_price_history(ipc.get_price_history(f.output.item_type))
+    print()
+
+    qty = 1000
     total = 0.0
     total_m3 = 0.0
     for i in f.inputs:
         p = ipc.find_item_price(i.item_type)
-        ph = ipc.get_price_history(i.item_type)
-        ph = ph[-15:]
         amt = qty * i.quantity * p.high_price
         total += amt
         total_m3 += qty * i.quantity * i.item_type.volume_m3
@@ -350,11 +366,7 @@ def shopper():
             f"{i.item_type.name} x{i.quantity * qty} "
             f"buy @{p.high_price:,.0f} {amt:,.0f}"
         )
-        print("  v:" + " ".join(f"{d.volume:8,.0f}" for d in ph))
-        print("=" * (9 * 15 + 3))
-        print("  h:" + " ".join(f"{d.highest:8,.0f}" for d in ph))
-        print("  a:" + " ".join(f"{d.average:8,.0f}" for d in ph))
-        print("  l:" + " ".join(f"{d.lowest:8,.0f}" for d in ph))
+        print_price_history(ipc.get_price_history(i.item_type))
         print()
     print(f"Total: {total:,.0f} ISK, {total_m3:,.0f} m3")
     print("Multibuy:")
