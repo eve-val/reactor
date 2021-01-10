@@ -354,7 +354,7 @@ def shopper():
     print_price_history(ipc.get_price_history(f.output.item_type))
     print()
 
-    qty = 1000
+    qty = 1500
     total = 0.0
     total_m3 = 0.0
     for i in f.inputs:
