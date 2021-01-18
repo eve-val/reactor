@@ -123,6 +123,7 @@ class Formula:
     output: ItemQuantity
     inputs: List[ItemQuantity]
     probability: float = 1.0
+    intermediates: List[ItemQuantity] = dataclasses.field(default_factory=list)
 
     def pretty_str(self) -> str:
         return (

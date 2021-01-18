@@ -65,6 +65,7 @@ ItemPriceSource = Callable[[world.ItemType], market.ItemPrice]
 ItemPriceHistoryDict = Dict[world.ItemType, List[market.HistoricalItemPrice]]
 
 SYSTEM_COST_FACTOR = 0.02
+SHIPMENT_COST_PER_M3 = 200
 
 
 @dataclasses.dataclass
@@ -74,6 +75,7 @@ class PricedFormula:
     daily_volume_in_runs: float
     profit: float
     input_cost: float
+    job_cost: float
 
     @property
     def runs_per_day(self):
@@ -108,13 +110,15 @@ class PricedFormula:
                 f"{amt:15,.0f} {inp.quantity}x {inp.item_type.name}; "
                 f"volume (runs): {p.daily_trade_volume / inp.quantity:,.0f}"
             )
-        print(f"{input_amt * SYSTEM_COST_FACTOR:15,.0f} job cost")
-        input_m3 *= self.runs_per_day
-        output_m3 = (
-            self.runs_per_day
-            * f.output.quantity
-            * f.output.item_type.volume_m3
+        print(f"{-self.job_cost:15,.0f} job cost")
+        output_m3 = f.output.quantity * f.output.item_type.volume_m3
+        ship_cost = -(input_m3 + output_m3) * SHIPMENT_COST_PER_M3
+        print(
+            f"{ship_cost:15,.0f} shipment cost "
+            f"for {input_m3+output_m3:,.0f} m3"
         )
+        input_m3 *= self.runs_per_day
+        output_m3 *= self.runs_per_day
         print(
             f"= {self.profit:13,.0f} per run; "
             f"per day ISK: {self.profit_per_day:,.0f}; "
@@ -122,7 +126,7 @@ class PricedFormula:
         )
 
 
-SALES_TAX_DISCOUNT = 0.95
+SALES_TAX_DISCOUNT = 0.97
 
 
 def price_formula(
@@ -132,16 +136,24 @@ def price_formula(
     daily_volume_in_runs = p.daily_trade_volume / f.output.quantity
     amt = p.low_price * f.output.quantity
     total = amt * SALES_TAX_DISCOUNT
-
+    total_m3 = f.output.quantity * f.output.item_type.volume_m3
     input_amt = 0.0
     for inp in f.inputs:
         p = ips(inp.item_type)
         qty = max(1.0, me * inp.quantity)
         input_amt += p.high_price * qty
-    input_amt *= 1 + SYSTEM_COST_FACTOR
+        total_m3 += inp.quantity * inp.item_type.volume_m3
+    job_cost = input_amt * SYSTEM_COST_FACTOR
+    for i in f.intermediates:
+        p = ips(i.item_type)
+        job_cost += SYSTEM_COST_FACTOR * (p.high_price * i.quantity)
     total -= input_amt
+    total -= total_m3 * SHIPMENT_COST_PER_M3
+    total -= job_cost
 
-    return PricedFormula(name, f, daily_volume_in_runs, total, input_amt)
+    return PricedFormula(
+        name, f, daily_volume_in_runs, total, input_amt, job_cost
+    )
 
 
 def fold_formula_with(
@@ -149,13 +161,15 @@ def fold_formula_with(
 ) -> Tuple[str, world.Formula]:
     if not to_fold:
         return f.output.item_type.name, f
-    new_items = []
+    new_items: List[world.ItemQuantity] = []
+    intermediates: List[world.ItemQuantity] = []
     total_time = f.time
     for it in f.inputs:
         if it.item_type.id not in to_fold:
             new_items.append(it)
             continue
         sub_f = to_fold[it.item_type.id]
+        intermediates.append(sub_f.output)
         multiplier = float(it.quantity) / sub_f.output.quantity
         total_time += multiplier * sub_f.time
         for s_it in sub_f.inputs:
@@ -165,7 +179,13 @@ def fold_formula_with(
     names = [it.output.item_type.name for it in to_fold.values()]
     sub_names = "/".join(sorted(names))
     name = f"{f.output.item_type.name}[{sub_names}]"
-    return name, world.Formula(f.blueprint, total_time, f.output, new_items)
+    return name, world.Formula(
+        f.blueprint,
+        total_time,
+        f.output,
+        new_items,
+        intermediates=intermediates,
+    )
 
 
 def powerset(iterable):
@@ -235,11 +255,15 @@ def get_price_snapshot(
     min_date = d - time_radius
     max_date = d + time_radius
     for it, prices in hist.items():
+        lo = 0.95 * max(
+            p.lowest for p in prices if p.date >= d and p.date <= max_date
+        )
+        hi = 1.05 * min(
+            p.highest for p in prices if p.date >= min_date and p.date <= d
+        )
         price_slice = [
             p for p in prices if p.date >= min_date and p.date <= max_date
         ]
-        lo = 0.95 * max(p.lowest for p in price_slice)
-        hi = 1.05 * min(p.highest for p in price_slice)
         vol = sum(p.volume for p in price_slice) / len(price_slice)
         r[it] = market.ItemPrice(it.id, last_updated, vol, lo, hi)
     return lambda it: r[it]
@@ -345,8 +369,8 @@ def shopper():
     w = world.World(serv.reference_db)
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
-    name = "Sylramic Fibers[Ceramic Powder/Hexite]"
-    # name = "Sylramic Fibers[Ceramic Powder]"
+    # name = "Sylramic Fibers[Ceramic Powder/Hexite]"
+    name = "Sylramic Fibers[Ceramic Powder]"
     # name = "Phenolic Composites"
     f = name_to_formula(w, name)
 
@@ -354,7 +378,7 @@ def shopper():
     print_price_history(ipc.get_price_history(f.output.item_type))
     print()
 
-    qty = 1500
+    qty = 344
     total = 0.0
     total_m3 = 0.0
     for i in f.inputs:
