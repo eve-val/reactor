@@ -203,9 +203,14 @@ def fold_formula(
     ]
     r = []
     for subset in powerset(foldable):
+    # for subset in [foldable]:
         to_fold = {it.output.item_type.id: it for it in subset}
         r.append(fold_formula_with(f, to_fold))
     return r
+
+
+def date_to_datetime(d: datetime.date) -> datetime.datetime:
+    return datetime.datetime(d.year, d.month, d.day)
 
 
 def print_industry_tree(w: world.World, padding: int, it: world.ItemType):
@@ -250,23 +255,30 @@ def get_price_snapshot(
     hist: ItemPriceHistoryDict, d: datetime.date
 ) -> ItemPriceSource:
     r = {}
-    last_updated = datetime.datetime(d.year, d.month, d.day)
     time_radius = datetime.timedelta(days=2)
     min_date = d - time_radius
     max_date = d + time_radius
     for it, prices in hist.items():
-        lo = 0.95 * max(
-            p.lowest for p in prices if p.date >= d and p.date <= max_date
+        r[it] = get_mean_price(
+            it.id,
+            [p for p in prices if p.date >= min_date and p.date <= max_date],
         )
-        hi = 1.05 * min(
-            p.highest for p in prices if p.date >= min_date and p.date <= d
-        )
-        price_slice = [
-            p for p in prices if p.date >= min_date and p.date <= max_date
-        ]
-        vol = sum(p.volume for p in price_slice) / len(price_slice)
-        r[it] = market.ItemPrice(it.id, last_updated, vol, lo, hi)
     return lambda it: r[it]
+
+
+def get_mean_price(
+    type_id, slice: List[market.HistoricalItemPrice]
+) -> market.ItemPrice:
+    volume_sum = sum(p.volume for p in slice)
+    price = sum(p.volume * p.average for p in slice) / volume_sum
+
+    return market.ItemPrice(
+        type_id=type_id,
+        last_refreshed=date_to_datetime(slice[-1].date),
+        daily_trade_volume=(volume_sum / len(slice)),
+        low_price=(price * 0.96),  # Assumes 4% overhead of sell orders
+        high_price=(price * 1.02),  # Assumes 2% overhead of buy orders
+    )
 
 
 def get_common_dates(prices: ItemPriceHistoryDict) -> List[datetime.date]:
@@ -324,10 +336,15 @@ def reactor():
     for f in formulas:
         folded = [
             price_formula(lambda it: ipc.find_item_price(it), name, f)
+            # price_formula(
+            #     lambda it: get_mean_price(
+            #         it.id, ipc.get_price_history(it)[-5:]
+            #     ),
+            #     name,
+            #     f,
+            # )
             for name, f in fold_formula(f, formulas_by_output)
         ]
-        # folded.sort(key=lambda p: p.profit_per_day, reverse=True)
-        # priced.append(folded[0])
         priced.extend(folded)
     priced.sort(key=lambda p: (p.profit / p.input_cost), reverse=True)
     for p in priced:
@@ -370,15 +387,17 @@ def shopper():
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
     # name = "Sylramic Fibers[Ceramic Powder/Hexite]"
-    name = "Sylramic Fibers[Ceramic Powder]"
+    # name = "Sylramic Fibers[Ceramic Powder]"
     # name = "Phenolic Composites"
+    # name = "Neo Mercurite"
+    name = "Phenolic Composites[Caesarium Cadmide/Silicon Diborite/Vanadium Hafnite]"
     f = name_to_formula(w, name)
 
     print(f.output.item_type.name)
     print_price_history(ipc.get_price_history(f.output.item_type))
     print()
 
-    qty = 344
+    qty = 1000
     total = 0.0
     total_m3 = 0.0
     for i in f.inputs:
