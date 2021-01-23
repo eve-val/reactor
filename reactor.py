@@ -76,6 +76,7 @@ class PricedFormula:
     profit: float
     input_cost: float
     job_cost: float
+    prices: Dict[world.ItemType, market.ItemPrice]
 
     @property
     def runs_per_day(self):
@@ -85,13 +86,17 @@ class PricedFormula:
     def profit_per_day(self):
         return self.runs_per_day * self.profit
 
-    def print(self, w: world.World, ipc: market.ItemPriceCache):
+    @property
+    def profit_ratio(self):
+        return self.profit / self.input_cost
+
+    def print(self):
         print(
             f"{self.name}  ---  {self.profit_per_day:,.0f}/day at "
-            f"{self.profit / self.input_cost * 100:.1f}%"
+            f"{self.profit_ratio * 100:.1f}%"
         )
         f = self.formula
-        p = ipc.find_item_price(f.output.item_type)
+        p = self.prices[f.output.item_type]
         amt = p.low_price * f.output.quantity
         print(
             f"{amt:15,.0f} {f.output.quantity}x {f.output.item_type.name}; "
@@ -102,7 +107,7 @@ class PricedFormula:
         input_amt = 0.0
         input_m3 = 0.0
         for inp in f.inputs:
-            p = ipc.find_item_price(inp.item_type)
+            p = self.prices[inp.item_type]
             amt = -p.high_price * inp.quantity
             input_amt += amt
             input_m3 += inp.item_type.volume_m3 * inp.quantity
@@ -132,7 +137,9 @@ SALES_TAX_DISCOUNT = 0.97
 def price_formula(
     ips: ItemPriceSource, name: str, f: world.Formula, me=1.0
 ) -> PricedFormula:
+    prices = {}
     p = ips(f.output.item_type)
+    prices[f.output.item_type] = p
     daily_volume_in_runs = p.daily_trade_volume / f.output.quantity
     amt = p.low_price * f.output.quantity
     total = amt * SALES_TAX_DISCOUNT
@@ -140,19 +147,21 @@ def price_formula(
     input_amt = 0.0
     for inp in f.inputs:
         p = ips(inp.item_type)
+        prices[inp.item_type] = p
         qty = max(1.0, me * inp.quantity)
         input_amt += p.high_price * qty
         total_m3 += inp.quantity * inp.item_type.volume_m3
     job_cost = input_amt * SYSTEM_COST_FACTOR
     for i in f.intermediates:
         p = ips(i.item_type)
+        prices[i.item_type] = p
         job_cost += SYSTEM_COST_FACTOR * (p.high_price * i.quantity)
     total -= input_amt
     total -= total_m3 * SHIPMENT_COST_PER_M3
     total -= job_cost
 
     return PricedFormula(
-        name, f, daily_volume_in_runs, total, input_amt, job_cost
+        name, f, daily_volume_in_runs, total, input_amt, job_cost, prices
     )
 
 
@@ -294,7 +303,7 @@ def get_common_dates(prices: ItemPriceHistoryDict) -> List[datetime.date]:
 
 
 def profit_key(xs: List[float]) -> Any:
-    return (sum(bool(x > 100000) for x in xs), sum(xs))
+    return (sum(bool(x > 0.1) for x in xs), sum(xs))
 
 
 def history():
@@ -312,7 +321,7 @@ def history():
         price_slice = get_price_snapshot(prices, d)
         for name, f in all_formulas:
             pf = price_formula(price_slice, name, f)
-            results[name].append(pf.profit_per_day)
+            results[name].append(pf.profit_ratio)
     results = [(name, profits) for name, profits in results.items()]
     results.sort(key=lambda x: profit_key(x[1]), reverse=True)
     seen_products = set()
@@ -321,7 +330,7 @@ def history():
         # if product in seen_products:
         #     continue
         seen_products.add(product)
-        print(name + ", " + ", ".join(f"{x:.0f}" for x in r))
+        print(name + ", " + ", ".join(f"{x:.3f}" for x in r))
 
 
 def reactor():
@@ -348,7 +357,7 @@ def reactor():
         priced.extend(folded)
     priced.sort(key=lambda p: (p.profit / p.input_cost), reverse=True)
     for p in priced:
-        p.print(w, ipc)
+        p.print()
         print()
 
 
@@ -387,10 +396,10 @@ def shopper():
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
     # name = "Sylramic Fibers[Ceramic Powder/Hexite]"
-    # name = "Sylramic Fibers[Ceramic Powder]"
+    name = "Sylramic Fibers[Ceramic Powder]"
     # name = "Phenolic Composites"
     # name = "Neo Mercurite"
-    name = "Phenolic Composites[Caesarium Cadmide/Silicon Diborite/Vanadium Hafnite]"
+    # name = "Phenolic Composites[Caesarium Cadmide/Silicon Diborite/Vanadium Hafnite]"
     f = name_to_formula(w, name)
 
     print(f.output.item_type.name)
