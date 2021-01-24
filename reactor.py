@@ -205,14 +205,18 @@ def powerset(iterable):
 
 
 def fold_formula(
-    f: world.Formula, others: Dict[int, world.Formula]
+    f: world.Formula, others: Dict[int, world.Formula], only_full_folds=False
 ) -> List[Tuple[str, world.Formula]]:
     foldable = [
         others[it.item_type.id] for it in f.inputs if it.item_type.id in others
     ]
     r = []
-    for subset in powerset(foldable):
-    # for subset in [foldable]:
+    if only_full_folds:
+        subsets = [foldable]
+    else:
+        subsets = powerset(foldable)
+    for subset in subsets:
+        # for subset in [foldable]:
         to_fold = {it.output.item_type.id: it for it in subset}
         r.append(fold_formula_with(f, to_fold))
     return r
@@ -237,12 +241,12 @@ def print_industry_tree(w: world.World, padding: int, it: world.ItemType):
 
 
 def fold_all_formulas(
-    formulas: List[world.Formula],
+    formulas: List[world.Formula], only_full_folds=False
 ) -> List[Tuple[str, world.Formula]]:
     formulas_by_output = {f.output.item_type.id: f for f in formulas}
     r = []
     for f in formulas:
-        r.extend(fold_formula(f, formulas_by_output))
+        r.extend(fold_formula(f, formulas_by_output, only_full_folds))
     return r
 
 
@@ -264,7 +268,7 @@ def get_price_snapshot(
     hist: ItemPriceHistoryDict, d: datetime.date
 ) -> ItemPriceSource:
     r = {}
-    time_radius = datetime.timedelta(days=2)
+    time_radius = datetime.timedelta(days=0)
     min_date = d - time_radius
     max_date = d + time_radius
     for it, prices in hist.items():
@@ -314,8 +318,15 @@ def history():
 
     formulas = [w.find_formula(w.find_item_type(id)) for id in REACTIONS]
     prices = get_all_price_histories(ipc, get_all_items(formulas))
-    all_formulas = fold_all_formulas(formulas)
+    all_formulas = fold_all_formulas(formulas, only_full_folds=True)
     dates = get_common_dates(prices)
+    for it, p in prices.items():
+        print(
+            it.name
+            + ", "
+            + ", ".join(f"{dp.average}" for dp in p if dp.date in dates)
+        )
+    return
     results = {name: [] for name, _ in all_formulas}
     for d in dates:
         price_slice = get_price_snapshot(prices, d)
@@ -324,12 +335,7 @@ def history():
             results[name].append(pf.profit_ratio)
     results = [(name, profits) for name, profits in results.items()]
     results.sort(key=lambda x: profit_key(x[1]), reverse=True)
-    seen_products = set()
     for name, r in results:
-        product = name.split("[")[0]
-        # if product in seen_products:
-        #     continue
-        seen_products.add(product)
         print(name + ", " + ", ".join(f"{x:.3f}" for x in r))
 
 
@@ -517,4 +523,4 @@ def test():
 
 
 if __name__ == "__main__":
-    shopper()
+    history()
