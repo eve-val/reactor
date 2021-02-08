@@ -402,19 +402,19 @@ def shopper():
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
     # name = "Sylramic Fibers[Ceramic Powder/Hexite]"
-    name = "Sylramic Fibers[Ceramic Powder]"
+    # name = "Sylramic Fibers[Ceramic Powder]"
     # name = "Phenolic Composites"
     # name = "Neo Mercurite"
     # name = "Phenolic Composites[Caesarium Cadmide/Silicon Diborite/Vanadium Hafnite]"
     # name = "Fullerides[Carbon Polymers]"
-    name = "Fullerides[Carbon Polymers/Platinum Technite]"
+    name = "Fullerides"
     f = name_to_formula(w, name)
 
     print(f.output.item_type.name)
     print_price_history(ipc.get_price_history(f.output.item_type))
     print()
 
-    qty = 1500
+    qty = 65
     total = 0.0
     total_m3 = 0.0
     for i in f.inputs:
