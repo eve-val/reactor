@@ -206,7 +206,7 @@ class ItemPriceCache:
 
     def _is_fresh(self, d: datetime.datetime) -> bool:
         return datetime.datetime.now() - d <= datetime.timedelta(
-            hours=random.uniform(6, 6)
+            hours=random.uniform(3, 3)
         )
 
     def find_item_price(self, item_type: world.ItemType) -> ItemPrice:
