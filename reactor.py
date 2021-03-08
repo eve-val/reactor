@@ -64,7 +64,7 @@ REACTIONS = [
 ItemPriceSource = Callable[[world.ItemType], market.ItemPrice]
 ItemPriceHistoryDict = Dict[world.ItemType, List[market.HistoricalItemPrice]]
 
-SYSTEM_COST_FACTOR = 0.02
+SYSTEM_COST_FACTOR = 0.03
 SHIPMENT_COST_PER_M3 = 200
 
 
@@ -401,9 +401,10 @@ def shopper():
     w = world.World(serv.reference_db)
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
-    # name = "Sylramic Fibers[Ceramic Powder/Hexite]"
+    name = "Sylramic Fibers[Hexite]"
+    # name = "Ceramic Powder"
     # name = "Sylramic Fibers[Ceramic Powder]"
-    name = "Phenolic Composites"
+    # name = "Phenolic Composites"
     # name = "Neo Mercurite"
     # name = "Phenolic Composites[Caesarium Cadmide/Silicon Diborite/Vanadium Hafnite]"
     # name = "Fullerides[Carbon Polymers]"
@@ -414,7 +415,7 @@ def shopper():
     print_price_history(ipc.get_price_history(f.output.item_type))
     print()
 
-    qty = 1000
+    qty = 2000
     total = 0.0
     total_m3 = 0.0
     for i in f.inputs:
