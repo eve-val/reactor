@@ -401,21 +401,22 @@ def shopper():
     w = world.World(serv.reference_db)
     ipc = market.ItemPriceCache(serv.store_db, serv.api)
 
-    name = "Sylramic Fibers[Hexite]"
+    # name = "Sylramic Fibers[Hexite]"
+    name = "Sylramic Fibers[Hexite/Ceramic Powder]"
     # name = "Ceramic Powder"
     # name = "Sylramic Fibers[Ceramic Powder]"
     # name = "Phenolic Composites"
     # name = "Neo Mercurite"
     # name = "Phenolic Composites[Caesarium Cadmide/Silicon Diborite/Vanadium Hafnite]"
     # name = "Fullerides[Carbon Polymers]"
-    # name = "Fullerides[Platinum Technite]"
+    # name = "Fullerides[Platinum Technite/Carbon Polymers]"
     f = name_to_formula(w, name)
 
     print(f.output.item_type.name)
     print_price_history(ipc.get_price_history(f.output.item_type))
     print()
 
-    qty = 2000
+    qty = 600
     total = 0.0
     total_m3 = 0.0
     for i in f.inputs:
@@ -503,11 +504,11 @@ def test():
     ]
 
     # Formulas for items assuming T2 BP exists
-    fs = [get_formula_for_item_name(w, item) for item in items]
+    # fs = [get_formula_for_item_name(w, item) for item in items]
     # All formulas that use a material
-    # mat = w.find_item_type_by_name("Sylramic Fibers")
-    # fs = w.find_material_uses(mat)
-    # fs = [f for f in fs if not f.output.item_type.is_capital]
+    mat = w.find_item_type_by_name("Sylramic Fibers")
+    fs = w.find_material_uses(mat)
+    fs = [f for f in fs if not f.output.item_type.is_capital]
     # Invention cost (not really correct)
     # fs = [
     #     w.find_invention_formula(w.find_blueprint(w.find_item_type_by_name(n)))
@@ -522,7 +523,7 @@ def test():
     ]
     priced.sort(key=lambda f: (f.profit / f.input_cost), reverse=True)
     for p in priced:
-        p.print(w, ipc)
+        p.print()
 
 
 if __name__ == "__main__":

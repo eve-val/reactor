@@ -1,0 +1,1421 @@
+Nonlinear Metamaterials[Ferrofluid/Titanium Chromide]  ---  8,993,566/day at 44.4%
+      8,106,000 300x Nonlinear Metamaterials; volume (runs): 1,801, runtime 21600.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -399,650 50.0x Titanium; volume (runs): 15,206
+       -635,000 50.0x Chromium; volume (runs): 31,824
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+       -474,478 job cost
+        -72,000 shipment cost for 360 m3
+=     2,248,392 per run; per day ISK: 8,993,566; m3: import 240, export 1,200
+
+Sylramic Fibers[Ceramic Powder/Hexite]  ---  2,829,146/day at 43.7%
+      2,647,200 6000x Sylramic Fibers; volume (runs): 5,244, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -168,248 job cost
+        -72,000 shipment cost for 360 m3
+=       707,286 per run; per day ISK: 2,829,146; m3: import 240, export 1,200
+
+Nonlinear Metamaterials[Ferrofluid]  ---  11,905,968/day at 43.3%
+      8,106,000 300x Nonlinear Metamaterials; volume (runs): 1,801, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+     -1,179,000 100x Titanium Chromide; volume (runs): 694
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+       -406,251 job cost
+        -72,500 shipment cost for 362 m3
+=     2,232,369 per run; per day ISK: 11,905,968; m3: import 333, export 1,600
+
+Nonlinear Metamaterials[Titanium Chromide]  ---  11,491,987/day at 39.9%
+      8,106,000 300x Nonlinear Metamaterials; volume (runs): 1,801, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -399,650 50.0x Titanium; volume (runs): 15,206
+       -635,000 50.0x Chromium; volume (runs): 31,824
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+       -232,822 job cost
+        -72,500 shipment cost for 362 m3
+=     2,154,748 per run; per day ISK: 11,491,987; m3: import 333, export 1,600
+
+Nonlinear Metamaterials  ---  17,109,800/day at 39.0%
+      8,106,000 300x Nonlinear Metamaterials; volume (runs): 1,801, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+     -1,179,000 100x Titanium Chromide; volume (runs): 694
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+       -164,595 job cost
+        -73,000 shipment cost for 365 m3
+=     2,138,725 per run; per day ISK: 17,109,800; m3: import 520, export 2,400
+
+Tungsten Carbide[Rolled Tungsten Alloy/Sulfuric Acid]  ---  1,700,266/day at 35.4%
+      1,872,000 10000x Tungsten Carbide; volume (runs): 3,983, runtime 21600.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -282,550 50.0x Tungsten; volume (runs): 13,648
+       -634,500 50.0x Platinum; volume (runs): 33,738
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+         -3,150 50.0x Atmospheric Gases; volume (runs): 192,615
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+       -157,974 job cost
+        -32,000 shipment cost for 160 m3
+=       425,067 per run; per day ISK: 1,700,266; m3: import 240, export 400
+
+Sylramic Fibers[Hexite]  ---  3,235,536/day at 35.0%
+      2,647,200 6000x Sylramic Fibers; volume (runs): 5,244, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+       -296,000 100x Ceramic Powder; volume (runs): 2,322
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -153,921 job cost
+        -72,500 shipment cost for 362 m3
+=       606,663 per run; per day ISK: 3,235,536; m3: import 333, export 1,600
+
+Fullerides[Carbon Polymers/Platinum Technite]  ---  2,102,143/day at 34.0%
+      2,406,300 3000x Fullerides; volume (runs): 3,557, runtime 21600.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+         -3,948 50.0x Hydrocarbons; volume (runs): 114,376
+        -68,750 50.0x Silicates; volume (runs): 60,012
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -611,500 50.0x Technetium; volume (runs): 13,357
+       -162,652 job cost
+       -102,000 shipment cost for 510 m3
+=       525,536 per run; per day ISK: 2,102,143; m3: import 240, export 1,800
+
+Fullerides[Platinum Technite]  ---  2,786,035/day at 33.6%
+      2,406,300 3000x Fullerides; volume (runs): 3,557, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+       -139,900 100x Carbon Polymers; volume (runs): 1,510
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -611,500 50.0x Technetium; volume (runs): 13,357
+       -154,580 job cost
+       -102,500 shipment cost for 512 m3
+=       522,382 per run; per day ISK: 2,786,035; m3: import 333, export 2,400
+
+Tungsten Carbide[Rolled Tungsten Alloy]  ---  2,143,365/day at 32.6%
+      1,872,000 10000x Tungsten Carbide; volume (runs): 3,983, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -282,550 50.0x Tungsten; volume (runs): 13,648
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -145,500 100x Sulfuric Acid; volume (runs): 1,605
+       -150,159 job cost
+        -32,500 shipment cost for 162 m3
+=       401,881 per run; per day ISK: 2,143,365; m3: import 333, export 533
+
+Crystalline Carbonide[Carbon Polymers/Crystallite Alloy]  ---  1,227,990/day at 30.2%
+      1,500,000 10000x Crystalline Carbonide; volume (runs): 5,422, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -174,400 50.0x Cobalt; volume (runs): 19,076
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+         -3,948 50.0x Hydrocarbons; volume (runs): 114,376
+        -68,750 50.0x Silicates; volume (runs): 60,012
+        -98,004 job cost
+        -32,000 shipment cost for 160 m3
+=       306,998 per run; per day ISK: 1,227,990; m3: import 240, export 400
+
+Crystalline Carbonide[Crystallite Alloy]  ---  1,620,497/day at 29.5%
+      1,500,000 10000x Crystalline Carbonide; volume (runs): 5,422, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -174,400 50.0x Cobalt; volume (runs): 19,076
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -139,900 100x Carbon Polymers; volume (runs): 1,510
+        -89,932 job cost
+        -32,500 shipment cost for 162 m3
+=       303,843 per run; per day ISK: 1,620,497; m3: import 333, export 533
+
+Ceramic Powder  ---  845,656/day at 29.1%
+        510,000 200x Ceramic Powder; volume (runs): 1,161, runtime 10800s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -111,200 100x Evaporite Deposits; volume (runs): 30,019
+       -137,500 100x Silicates; volume (runs): 30,006
+        -10,893 job cost
+        -15,000 shipment cost for 75 m3
+=       105,707 per run; per day ISK: 845,656; m3: import 280, export 320
+
+Fernite Carbide[Ceramic Powder/Fernite Alloy]  ---  1,122,744/day at 29.0%
+      1,425,000 10000x Fernite Carbide; volume (runs): 3,942, runtime 21600.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -204,900 50.0x Scandium; volume (runs): 15,368
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+       -100,164 job cost
+        -32,000 shipment cost for 160 m3
+=       280,686 per run; per day ISK: 1,122,744; m3: import 240, export 400
+
+Phenolic Composites[Caesarium Cadmide/Silicon Diborite/Vanadium Hafnite]  ---  2,167,731/day at 28.3%
+      3,531,000 2200x Phenolic Composites; volume (runs): 2,373, runtime 27000.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+       -252,354 job cost
+       -103,500 shipment cost for 518 m3
+=       677,416 per run; per day ISK: 2,167,731; m3: import 248, export 1,408
+
+Titanium Carbide[Silicon Diborite/Titanium Chromide]  ---  1,498,752/day at 26.7%
+      2,001,000 10000x Titanium Carbide; volume (runs): 5,402, runtime 21600.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -399,650 50.0x Titanium; volume (runs): 15,206
+       -635,000 50.0x Chromium; volume (runs): 31,824
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+       -132,882 job cost
+        -32,000 shipment cost for 160 m3
+=       374,688 per run; per day ISK: 1,498,752; m3: import 240, export 400
+
+Titanium Carbide[Silicon Diborite]  ---  1,912,883/day at 24.2%
+      2,001,000 10000x Titanium Carbide; volume (runs): 5,402, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,179,000 100x Titanium Chromide; volume (runs): 694
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+        -64,654 job cost
+        -32,500 shipment cost for 162 m3
+=       358,666 per run; per day ISK: 1,912,883; m3: import 333, export 533
+
+Sylramic Fibers[Ceramic Powder]  ---  2,267,995/day at 21.3%
+      2,647,200 6000x Sylramic Fibers; volume (runs): 5,244, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+     -1,698,000 100x Hexite; volume (runs): 1,143
+        -77,535 job cost
+        -72,500 shipment cost for 362 m3
+=       425,249 per run; per day ISK: 2,267,995; m3: import 333, export 1,600
+
+Phenolic Composites[Caesarium Cadmide/Vanadium Hafnite]  ---  2,169,858/day at 21.3%
+      3,531,000 2200x Phenolic Composites; volume (runs): 2,373, runtime 21600.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+       -335,000 100x Silicon Diborite; volume (runs): 1,682
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+       -236,756 job cost
+       -104,000 shipment cost for 520 m3
+=       542,464 per run; per day ISK: 2,169,858; m3: import 320, export 1,760
+
+Nanotransistors[Neo Mercurite/Platinum Technite/Sulfuric Acid]  ---  2,990,876/day at 18.7%
+      6,744,000 1500x Nanotransistors; volume (runs): 1,453, runtime 27000.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+         -3,150 50.0x Atmospheric Gases; volume (runs): 192,615
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -611,500 50.0x Technetium; volume (runs): 13,357
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+       -507,307 job cost
+        -90,500 shipment cost for 452 m3
+=       934,649 per run; per day ISK: 2,990,876; m3: import 248, export 1,200
+
+Nanotransistors[Neo Mercurite/Platinum Technite]  ---  3,645,853/day at 18.1%
+      6,744,000 1500x Nanotransistors; volume (runs): 1,453, runtime 21600.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+       -145,500 100x Sulfuric Acid; volume (runs): 1,605
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -611,500 50.0x Technetium; volume (runs): 13,357
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+       -499,492 job cost
+        -91,000 shipment cost for 455 m3
+=       911,463 per run; per day ISK: 3,645,853; m3: import 320, export 1,500
+
+Phenolic Composites[Silicon Diborite/Vanadium Hafnite]  ---  1,844,296/day at 17.1%
+      3,531,000 2200x Phenolic Composites; volume (runs): 2,373, runtime 21600.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+       -170,796 job cost
+       -104,000 shipment cost for 520 m3
+=       461,074 per run; per day ISK: 1,844,296; m3: import 320, export 1,760
+
+Phenolic Composites[Caesarium Cadmide/Silicon Diborite]  ---  1,784,910/day at 16.6%
+      3,531,000 2200x Phenolic Composites; volume (runs): 2,373, runtime 21600.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+     -1,167,000 100x Vanadium Hafnite; volume (runs): 550
+       -191,092 job cost
+       -104,000 shipment cost for 520 m3
+=       446,228 per run; per day ISK: 1,784,910; m3: import 320, export 1,760
+
+Fernite Carbide[Fernite Alloy]  ---  960,333/day at 16.6%
+      1,425,000 10000x Fernite Carbide; volume (runs): 3,942, runtime 16200.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -204,900 50.0x Scandium; volume (runs): 15,368
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -296,000 100x Ceramic Powder; volume (runs): 2,322
+        -85,838 job cost
+        -32,500 shipment cost for 162 m3
+=       180,062 per run; per day ISK: 960,333; m3: import 333, export 533
+
+Titanium Carbide[Titanium Chromide]  ---  1,278,595/day at 15.5%
+      2,001,000 10000x Titanium Carbide; volume (runs): 5,402, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -399,650 50.0x Titanium; volume (runs): 15,206
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -335,000 100x Silicon Diborite; volume (runs): 1,682
+       -117,284 job cost
+        -32,500 shipment cost for 162 m3
+=       239,736 per run; per day ISK: 1,278,595; m3: import 333, export 533
+
+Sylramic Fibers  ---  2,597,004/day at 15.4%
+      2,647,200 6000x Sylramic Fibers; volume (runs): 5,244, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+       -296,000 100x Ceramic Powder; volume (runs): 2,322
+     -1,698,000 100x Hexite; volume (runs): 1,143
+        -63,208 job cost
+        -73,000 shipment cost for 365 m3
+=       324,626 per run; per day ISK: 2,597,004; m3: import 520, export 2,400
+
+Plasmonic Metamaterials[Fernite Alloy/Neo Mercurite]  ---  2,617,933/day at 15.3%
+      5,583,000 300x Plasmonic Metamaterials; volume (runs): 1,446, runtime 21600.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -204,900 50.0x Scandium; volume (runs): 15,368
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+       -421,702 job cost
+        -72,000 shipment cost for 360 m3
+=       654,483 per run; per day ISK: 2,617,933; m3: import 240, export 1,200
+
+Titanium Carbide  ---  1,789,712/day at 13.7%
+      2,001,000 10000x Titanium Carbide; volume (runs): 5,402, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,179,000 100x Titanium Chromide; volume (runs): 694
+       -335,000 100x Silicon Diborite; volume (runs): 1,682
+        -49,056 job cost
+        -33,000 shipment cost for 165 m3
+=       223,714 per run; per day ISK: 1,789,712; m3: import 520, export 800
+
+Crystalline Carbonide[Carbon Polymers]  ---  803,647/day at 12.3%
+      1,500,000 10000x Crystalline Carbonide; volume (runs): 5,422, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+       -984,500 100x Crystallite Alloy; volume (runs): 638
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+         -3,948 50.0x Hydrocarbons; volume (runs): 114,376
+        -68,750 50.0x Silicates; volume (runs): 60,012
+        -45,193 job cost
+        -32,500 shipment cost for 162 m3
+=       150,684 per run; per day ISK: 803,647; m3: import 333, export 533
+
+Crystalline Carbonide  ---  1,180,236/day at 11.9%
+      1,500,000 10000x Crystalline Carbonide; volume (runs): 5,422, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+       -984,500 100x Crystallite Alloy; volume (runs): 638
+       -139,900 100x Carbon Polymers; volume (runs): 1,510
+        -37,120 job cost
+        -33,000 shipment cost for 165 m3
+=       147,530 per run; per day ISK: 1,180,236; m3: import 520, export 800
+
+Photonic Metamaterials[Crystallite Alloy/Thulium Hafnite]  ---  1,233,667/day at 11.5%
+      3,414,000 300x Photonic Metamaterials; volume (runs): 2,199, runtime 21600.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -174,400 50.0x Cobalt; volume (runs): 19,076
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+       -257,888 job cost
+        -72,000 shipment cost for 360 m3
+=       308,417 per run; per day ISK: 1,233,667; m3: import 240, export 1,200
+
+Phenolic Composites[Vanadium Hafnite]  ---  1,739,320/day at 11.5%
+      3,531,000 2200x Phenolic Composites; volume (runs): 2,373, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+       -335,000 100x Silicon Diborite; volume (runs): 1,682
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+       -155,198 job cost
+       -104,500 shipment cost for 522 m3
+=       326,122 per run; per day ISK: 1,739,320; m3: import 440, export 2,347
+
+Nanotransistors[Platinum Technite/Sulfuric Acid]  ---  2,528,752/day at 11.4%
+      6,744,000 1500x Nanotransistors; volume (runs): 1,453, runtime 21600.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+         -3,150 50.0x Atmospheric Gases; volume (runs): 192,615
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -611,500 50.0x Technetium; volume (runs): 13,357
+     -4,006,000 100x Neo Mercurite; volume (runs): 384
+       -282,742 job cost
+        -91,000 shipment cost for 455 m3
+=       632,188 per run; per day ISK: 2,528,752; m3: import 320, export 1,500
+
+Phenolic Composites[Caesarium Cadmide]  ---  1,660,139/day at 11.0%
+      3,531,000 2200x Phenolic Composites; volume (runs): 2,373, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+       -335,000 100x Silicon Diborite; volume (runs): 1,682
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+     -1,167,000 100x Vanadium Hafnite; volume (runs): 550
+       -175,494 job cost
+       -104,500 shipment cost for 522 m3
+=       311,276 per run; per day ISK: 1,660,139; m3: import 440, export 2,347
+
+Nanotransistors[Platinum Technite]  ---  3,248,013/day at 10.9%
+      6,744,000 1500x Nanotransistors; volume (runs): 1,453, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+       -145,500 100x Sulfuric Acid; volume (runs): 1,605
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -634,500 50.0x Platinum; volume (runs): 33,738
+       -611,500 50.0x Technetium; volume (runs): 13,357
+     -4,006,000 100x Neo Mercurite; volume (runs): 384
+       -274,928 job cost
+        -91,500 shipment cost for 458 m3
+=       609,002 per run; per day ISK: 3,248,013; m3: import 440, export 2,000
+
+Plasmonic Metamaterials[Neo Mercurite]  ---  2,589,855/day at 10.8%
+      5,583,000 300x Plasmonic Metamaterials; volume (runs): 1,446, runtime 16200.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -888,700 100x Fernite Alloy; volume (runs): 694
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+       -374,837 job cost
+        -72,500 shipment cost for 362 m3
+=       485,598 per run; per day ISK: 2,589,855; m3: import 333, export 1,600
+
+Nanotransistors[Neo Mercurite/Sulfuric Acid]  ---  2,121,745/day at 9.6%
+      6,744,000 1500x Nanotransistors; volume (runs): 1,453, runtime 21600.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+         -3,150 50.0x Atmospheric Gases; volume (runs): 192,615
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+     -1,799,000 100x Platinum Technite; volume (runs): 524
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+       -414,269 job cost
+        -91,000 shipment cost for 455 m3
+=       530,436 per run; per day ISK: 2,121,745; m3: import 320, export 1,500
+
+Fernite Carbide[Ceramic Powder]  ---  596,269/day at 9.4%
+      1,425,000 10000x Fernite Carbide; volume (runs): 3,942, runtime 16200.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -888,700 100x Fernite Alloy; volume (runs): 694
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+        -53,300 job cost
+        -32,500 shipment cost for 162 m3
+=       111,800 per run; per day ISK: 596,269; m3: import 333, export 533
+
+Nanotransistors[Neo Mercurite]  ---  2,705,337/day at 9.2%
+      6,744,000 1500x Nanotransistors; volume (runs): 1,453, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+       -145,500 100x Sulfuric Acid; volume (runs): 1,605
+     -1,799,000 100x Platinum Technite; volume (runs): 524
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+       -406,454 job cost
+        -91,500 shipment cost for 458 m3
+=       507,251 per run; per day ISK: 2,705,337; m3: import 440, export 2,000
+
+Rolled Tungsten Alloy  ---  1,222,416/day at 7.8%
+      2,240,000 200x Rolled Tungsten Alloy; volume (runs): 231, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+       -565,100 100x Tungsten; volume (runs): 6,824
+     -1,269,000 100x Platinum; volume (runs): 16,869
+        -58,398 job cost
+        -15,000 shipment cost for 75 m3
+=       152,802 per run; per day ISK: 1,222,416; m3: import 280, export 320
+
+Phenolic Composites[Silicon Diborite]  ---  1,226,056/day at 7.7%
+      3,531,000 2200x Phenolic Composites; volume (runs): 2,373, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -68,750 50.0x Silicates; volume (runs): 60,012
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+     -1,167,000 100x Vanadium Hafnite; volume (runs): 550
+       -109,534 job cost
+       -104,500 shipment cost for 522 m3
+=       229,886 per run; per day ISK: 1,226,056; m3: import 440, export 2,347
+
+Photonic Metamaterials[Crystallite Alloy]  ---  1,171,801/day at 7.6%
+      3,414,000 300x Photonic Metamaterials; volume (runs): 2,199, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -174,400 50.0x Cobalt; volume (runs): 19,076
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -1,977,000 100x Thulium Hafnite; volume (runs): 200
+       -145,292 job cost
+        -72,500 shipment cost for 362 m3
+=       219,713 per run; per day ISK: 1,171,801; m3: import 333, export 1,600
+
+Platinum Technite  ---  1,543,720/day at 7.4%
+      2,980,000 200x Platinum Technite; volume (runs): 262, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+     -1,269,000 100x Platinum; volume (runs): 16,869
+     -1,223,000 100x Technetium; volume (runs): 6,679
+        -78,135 job cost
+        -15,000 shipment cost for 75 m3
+=       192,965 per run; per day ISK: 1,543,720; m3: import 280, export 320
+
+Plasmonic Metamaterials[Fernite Alloy]  ---  1,877,453/day at 7.3%
+      5,583,000 300x Plasmonic Metamaterials; volume (runs): 1,446, runtime 16200.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -204,900 50.0x Scandium; volume (runs): 15,368
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -4,006,000 100x Neo Mercurite; volume (runs): 384
+       -197,138 job cost
+        -72,500 shipment cost for 362 m3
+=       352,022 per run; per day ISK: 1,877,453; m3: import 333, export 1,600
+
+Ferrogel[Ferrofluid/Hexite/Prometium]  ---  2,305,253/day at 6.5%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 27000.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+     -2,809,000 100x Hyperflurite; volume (runs): 328
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -885,238 job cost
+        -99,500 shipment cost for 498 m3
+=       720,392 per run; per day ISK: 2,305,253; m3: import 312, export 1,280
+
+Fullerides[Carbon Polymers]  ---  647,058/day at 5.9%
+      2,406,300 3000x Fullerides; volume (runs): 3,557, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+         -3,948 50.0x Hydrocarbons; volume (runs): 114,376
+        -68,750 50.0x Silicates; volume (runs): 60,012
+     -1,799,000 100x Platinum Technite; volume (runs): 524
+        -69,614 job cost
+       -102,500 shipment cost for 512 m3
+=       121,323 per run; per day ISK: 647,058; m3: import 333, export 2,400
+
+Fullerides  ---  945,352/day at 5.8%
+      2,406,300 3000x Fullerides; volume (runs): 3,557, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+       -139,900 100x Carbon Polymers; volume (runs): 1,510
+     -1,799,000 100x Platinum Technite; volume (runs): 524
+        -61,542 job cost
+       -103,000 shipment cost for 515 m3
+=       118,169 per run; per day ISK: 945,352; m3: import 520, export 3,600
+
+Ferrogel[Hexite/Prometium]  ---  2,506,990/day at 5.5%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 21600.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+     -2,809,000 100x Hyperflurite; volume (runs): 328
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -643,582 job cost
+       -100,000 shipment cost for 500 m3
+=       626,748 per run; per day ISK: 2,506,990; m3: import 400, export 1,600
+
+Photonic Metamaterials[Thulium Hafnite]  ---  811,216/day at 5.3%
+      3,414,000 300x Photonic Metamaterials; volume (runs): 2,199, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+       -984,500 100x Crystallite Alloy; volume (runs): 638
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+       -205,077 job cost
+        -72,500 shipment cost for 362 m3
+=       152,103 per run; per day ISK: 811,216; m3: import 333, export 1,600
+
+Terahertz Metamaterials[Promethium Mercurite/Rolled Tungsten Alloy]  ---  792,133/day at 5.0%
+      4,815,000 300x Terahertz Metamaterials; volume (runs): 1,594, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -282,550 50.0x Tungsten; volume (runs): 13,648
+       -634,500 50.0x Platinum; volume (runs): 33,738
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -418,792 job cost
+        -72,000 shipment cost for 360 m3
+=       198,033 per run; per day ISK: 792,133; m3: import 240, export 1,200
+
+Ferrogel[Ferrofluid/Hexite/Hyperflurite/Prometium]  ---  1,452,063/day at 4.9%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 32400.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+     -1,054,006 job cost
+        -99,000 shipment cost for 495 m3
+=       544,524 per run; per day ISK: 1,452,063; m3: import 253, export 1,067
+
+Ferrogel[Ferrofluid/Hexite]  ---  2,135,998/day at 4.7%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 21600.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+     -2,809,000 100x Hyperflurite; volume (runs): 328
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -3,329,000 100x Prometium; volume (runs): 470
+       -696,730 job cost
+       -100,000 shipment cost for 500 m3
+=       534,000 per run; per day ISK: 2,135,998; m3: import 400, export 1,600
+
+Terahertz Metamaterials[Rolled Tungsten Alloy]  ---  911,640/day at 4.1%
+      4,815,000 300x Terahertz Metamaterials; volume (runs): 1,594, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -282,550 50.0x Tungsten; volume (runs): 13,648
+       -634,500 50.0x Platinum; volume (runs): 33,738
+     -3,102,000 100x Promethium Mercurite; volume (runs): 112
+       -238,868 job cost
+        -72,500 shipment cost for 362 m3
+=       170,932 per run; per day ISK: 911,640; m3: import 333, export 1,600
+
+Ferrogel[Hexite/Hyperflurite/Prometium]  ---  1,442,814/day at 4.0%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 27000.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -812,350 job cost
+        -99,500 shipment cost for 498 m3
+=       450,880 per run; per day ISK: 1,442,814; m3: import 312, export 1,280
+
+Ferrogel[Ferrofluid/Prometium]  ---  1,753,416/day at 3.8%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 21600.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+     -1,698,000 100x Hexite; volume (runs): 1,143
+     -2,809,000 100x Hyperflurite; volume (runs): 328
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -794,526 job cost
+       -100,000 shipment cost for 500 m3
+=       438,354 per run; per day ISK: 1,753,416; m3: import 400, export 1,600
+
+Nanotransistors[Sulfuric Acid]  ---  1,215,869/day at 3.8%
+      6,744,000 1500x Nanotransistors; volume (runs): 1,453, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+         -3,150 50.0x Atmospheric Gases; volume (runs): 192,615
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+     -1,799,000 100x Platinum Technite; volume (runs): 524
+     -4,006,000 100x Neo Mercurite; volume (runs): 384
+       -189,705 job cost
+        -91,500 shipment cost for 458 m3
+=       227,976 per run; per day ISK: 1,215,869; m3: import 440, export 2,000
+
+Ferrogel[Hexite]  ---  2,348,563/day at 3.7%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 16200.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+     -2,809,000 100x Hyperflurite; volume (runs): 328
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+     -3,329,000 100x Prometium; volume (runs): 470
+       -455,074 job cost
+       -100,500 shipment cost for 502 m3
+=       440,356 per run; per day ISK: 2,348,563; m3: import 547, export 2,133
+
+Vanadium Hafnite  ---  519,784/day at 3.7%
+      1,940,800 200x Vanadium Hafnite; volume (runs): 275, runtime 10800s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -822,700 100x Vanadium; volume (runs): 11,467
+       -813,000 100x Hafnium; volume (runs): 13,521
+        -52,503 job cost
+        -15,000 shipment cost for 75 m3
+=        64,973 per run; per day ISK: 519,784; m3: import 280, export 320
+
+Plasmonic Metamaterials  ---  1,465,096/day at 3.7%
+      5,583,000 300x Plasmonic Metamaterials; volume (runs): 1,446, runtime 10800s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -888,700 100x Fernite Alloy; volume (runs): 694
+     -4,006,000 100x Neo Mercurite; volume (runs): 384
+       -150,273 job cost
+        -73,000 shipment cost for 365 m3
+=       183,137 per run; per day ISK: 1,465,096; m3: import 520, export 2,400
+
+Nanotransistors  ---  1,638,320/day at 3.4%
+      6,744,000 1500x Nanotransistors; volume (runs): 1,453, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+       -145,500 100x Sulfuric Acid; volume (runs): 1,605
+     -1,799,000 100x Platinum Technite; volume (runs): 524
+     -4,006,000 100x Neo Mercurite; volume (runs): 384
+       -181,890 job cost
+        -92,000 shipment cost for 460 m3
+=       204,790 per run; per day ISK: 1,638,320; m3: import 680, export 3,000
+
+Ferrogel[Ferrofluid/Hexite/Hyperflurite]  ---  1,146,021/day at 3.1%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 27000.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -3,329,000 100x Prometium; volume (runs): 470
+       -865,498 job cost
+        -99,500 shipment cost for 498 m3
+=       358,132 per run; per day ISK: 1,146,021; m3: import 312, export 1,280
+
+Phenolic Composites  ---  759,472/day at 3.0%
+      3,531,000 2200x Phenolic Composites; volume (runs): 2,373, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+       -335,000 100x Silicon Diborite; volume (runs): 1,682
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+     -1,167,000 100x Vanadium Hafnite; volume (runs): 550
+        -93,936 job cost
+       -105,000 shipment cost for 525 m3
+=        94,934 per run; per day ISK: 759,472; m3: import 680, export 3,520
+
+Ferrogel[Prometium]  ---  1,838,453/day at 2.9%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 16200.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+     -1,698,000 100x Hexite; volume (runs): 1,143
+     -2,809,000 100x Hyperflurite; volume (runs): 328
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -552,870 job cost
+       -100,500 shipment cost for 502 m3
+=       344,710 per run; per day ISK: 1,838,453; m3: import 547, export 2,133
+
+Ferrogel[Ferrofluid/Hyperflurite/Prometium]  ---  839,955/day at 2.3%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 27000.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+     -1,698,000 100x Hexite; volume (runs): 1,143
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -963,294 job cost
+        -99,500 shipment cost for 498 m3
+=       262,486 per run; per day ISK: 839,955; m3: import 312, export 1,280
+
+Ferrogel[Hexite/Hyperflurite]  ---  1,057,950/day at 2.2%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 21600.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -634,500 50.0x Platinum; volume (runs): 33,738
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+     -3,329,000 100x Prometium; volume (runs): 470
+       -623,842 job cost
+       -100,000 shipment cost for 500 m3
+=       264,488 per run; per day ISK: 1,057,950; m3: import 400, export 1,600
+
+Ferrogel[Ferrofluid]  ---  1,343,797/day at 2.1%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 16200.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+     -1,698,000 100x Hexite; volume (runs): 1,143
+     -2,809,000 100x Hyperflurite; volume (runs): 328
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -3,329,000 100x Prometium; volume (runs): 470
+       -606,018 job cost
+       -100,500 shipment cost for 502 m3
+=       251,962 per run; per day ISK: 1,343,797; m3: import 547, export 2,133
+
+Photonic Metamaterials  ---  507,192/day at 2.1%
+      3,414,000 300x Photonic Metamaterials; volume (runs): 2,199, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+       -984,500 100x Crystallite Alloy; volume (runs): 638
+     -1,977,000 100x Thulium Hafnite; volume (runs): 200
+        -92,481 job cost
+        -73,000 shipment cost for 365 m3
+=        63,399 per run; per day ISK: 507,192; m3: import 520, export 2,400
+
+Fermionic Condensates[Caesarium Cadmide/Dysporite/Prometium]  ---  636,548/day at 1.6%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 27000.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -3,998,000 100x Fluxed Condensates; volume (runs): 219
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -929,434 job cost
+        -71,500 shipment cost for 358 m3
+=       198,921 per run; per day ISK: 636,548; m3: import 312, export 832
+
+Ferrogel[Hyperflurite/Prometium]  ---  675,368/day at 1.4%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 21600.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+     -1,698,000 100x Hexite; volume (runs): 1,143
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -721,638 job cost
+       -100,000 shipment cost for 500 m3
+=       168,842 per run; per day ISK: 675,368; m3: import 400, export 1,600
+
+Ferrogel  ---  1,266,544/day at 1.3%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 10800s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+     -1,698,000 100x Hexite; volume (runs): 1,143
+     -2,809,000 100x Hyperflurite; volume (runs): 328
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+     -3,329,000 100x Prometium; volume (runs): 470
+       -364,362 job cost
+       -101,000 shipment cost for 505 m3
+=       158,318 per run; per day ISK: 1,266,544; m3: import 840, export 3,200
+
+Fernite Carbide  ---  89,416/day at 0.9%
+      1,425,000 10000x Fernite Carbide; volume (runs): 3,942, runtime 10800s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -888,700 100x Fernite Alloy; volume (runs): 694
+       -296,000 100x Ceramic Powder; volume (runs): 2,322
+        -38,973 job cost
+        -33,000 shipment cost for 165 m3
+=        11,177 per run; per day ISK: 89,416; m3: import 520, export 800
+
+Ferrogel[Ferrofluid/Hyperflurite]  ---  304,376/day at 0.6%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 21600.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+     -1,698,000 100x Hexite; volume (runs): 1,143
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -3,329,000 100x Prometium; volume (runs): 470
+       -774,786 job cost
+       -100,000 shipment cost for 500 m3
+=        76,094 per run; per day ISK: 304,376; m3: import 400, export 1,600
+
+Fermionic Condensates[Caesarium Cadmide/Dysporite]  ---  50,117/day at 0.1%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -3,998,000 100x Fluxed Condensates; volume (runs): 219
+     -3,329,000 100x Prometium; volume (runs): 470
+       -740,926 job cost
+        -72,000 shipment cost for 360 m3
+=        12,529 per run; per day ISK: 50,117; m3: import 400, export 1,040
+
+Fermionic Condensates[Dysporite/Prometium]  ---  -69,683/day at -0.1%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -3,998,000 100x Fluxed Condensates; volume (runs): 219
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -847,876 job cost
+        -72,000 shipment cost for 360 m3
+=       -17,421 per run; per day ISK: -69,683; m3: import 400, export 1,040
+
+Ferrogel[Hyperflurite]  ---  -93,600/day at -0.1%
+     13,164,000 400x Ferrogel; volume (runs): 1,213, runtime 16200.0s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+     -1,698,000 100x Hexite; volume (runs): 1,143
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+     -4,195,000 100x Ferrofluid; volume (runs): 434
+     -3,329,000 100x Prometium; volume (runs): 470
+       -533,130 job cost
+       -100,500 shipment cost for 502 m3
+=       -17,550 per run; per day ISK: -93,600; m3: import 547, export 2,133
+
+Hypersynaptic Fibers[Dysporite/Vanadium Hafnite]  ---  -147,017/day at -0.6%
+      6,825,750 750x Hypersynaptic Fibers; volume (runs): 940, runtime 21600.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,089,000 100x Solerium; volume (runs): 299
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+       -523,507 job cost
+       -106,000 shipment cost for 530 m3
+=       -36,754 per run; per day ISK: -147,017; m3: import 320, export 1,800
+
+Fermionic Condensates[Caesarium Cadmide/Prometium]  ---  -591,978/day at -1.2%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+     -4,544,000 100x Dysporite; volume (runs): 309
+     -3,998,000 100x Fluxed Condensates; volume (runs): 219
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -674,824 job cost
+        -72,000 shipment cost for 360 m3
+=      -147,994 per run; per day ISK: -591,978; m3: import 400, export 1,040
+
+Fermionic Condensates[Dysporite]  ---  -1,087,001/day at -1.6%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -3,998,000 100x Fluxed Condensates; volume (runs): 219
+     -3,329,000 100x Prometium; volume (runs): 470
+       -659,368 job cost
+        -72,500 shipment cost for 362 m3
+=      -203,813 per run; per day ISK: -1,087,001; m3: import 547, export 1,387
+
+Silicon Diborite  ---  -54,664/day at -1.8%
+        401,200 200x Silicon Diborite; volume (runs): 841, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+       -111,200 100x Evaporite Deposits; volume (runs): 30,019
+       -137,500 100x Silicates; volume (runs): 30,006
+        -11,097 job cost
+        -15,000 shipment cost for 75 m3
+=        -6,833 per run; per day ISK: -54,664; m3: import 280, export 320
+
+Fermionic Condensates[Caesarium Cadmide]  ---  -1,783,395/day at -2.5%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+     -4,544,000 100x Dysporite; volume (runs): 309
+     -3,998,000 100x Fluxed Condensates; volume (runs): 219
+     -3,329,000 100x Prometium; volume (runs): 470
+       -486,316 job cost
+        -72,500 shipment cost for 362 m3
+=      -334,386 per run; per day ISK: -1,783,395; m3: import 547, export 1,387
+
+Neo Mercurite  ---  -1,419,028/day at -2.5%
+      7,222,000 200x Neo Mercurite; volume (runs): 192, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+       -980,000 100x Mercury; volume (runs): 8,543
+     -5,866,000 100x Neodymium; volume (runs): 4,254
+       -208,768 job cost
+        -15,000 shipment cost for 75 m3
+=      -177,378 per run; per day ISK: -1,419,028; m3: import 280, export 320
+
+Fermionic Condensates[Prometium]  ---  -1,943,128/day at -2.8%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+     -4,544,000 100x Dysporite; volume (runs): 309
+     -3,998,000 100x Fluxed Condensates; volume (runs): 219
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -593,266 job cost
+        -72,500 shipment cost for 362 m3
+=      -364,336 per run; per day ISK: -1,943,128; m3: import 547, export 1,387
+
+Fermionic Condensates[Caesarium Cadmide/Dysporite/Fluxed Condensates/Prometium]  ---  -954,138/day at -2.9%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 32400.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+     -1,178,557 job cost
+        -71,000 shipment cost for 355 m3
+=      -357,802 per run; per day ISK: -954,138; m3: import 253, export 693
+
+Crystallite Alloy  ---  -462,484/day at -3.7%
+      1,603,600 200x Crystallite Alloy; volume (runs): 319, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+       -348,800 100x Cobalt; volume (runs): 9,538
+     -1,090,000 100x Cadmium; volume (runs): 13,580
+        -46,552 job cost
+        -15,000 shipment cost for 75 m3
+=       -57,810 per run; per day ISK: -462,484; m3: import 280, export 320
+
+Sulfuric Acid  ---  -68,984/day at -3.7%
+        250,800 200x Sulfuric Acid; volume (runs): 802, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+         -6,299 100x Atmospheric Gases; volume (runs): 96,308
+       -111,200 100x Evaporite Deposits; volume (runs): 30,019
+         -6,900 job cost
+        -15,000 shipment cost for 75 m3
+=        -8,623 per run; per day ISK: -68,984; m3: import 280, export 320
+
+Fermionic Condensates  ---  -4,405,828/day at -4.1%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+     -4,544,000 100x Dysporite; volume (runs): 309
+     -3,998,000 100x Fluxed Condensates; volume (runs): 219
+     -3,329,000 100x Prometium; volume (runs): 470
+       -404,758 job cost
+        -73,000 shipment cost for 365 m3
+=      -550,728 per run; per day ISK: -4,405,828; m3: import 840, export 2,080
+
+Fermionic Condensates[Caesarium Cadmide/Dysporite/Fluxed Condensates]  ---  -1,741,420/day at -4.2%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 27000.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+     -3,329,000 100x Prometium; volume (runs): 470
+       -990,049 job cost
+        -71,500 shipment cost for 358 m3
+=      -544,194 per run; per day ISK: -1,741,420; m3: import 312, export 832
+
+Hypersynaptic Fibers[Dysporite]  ---  -1,429,028/day at -4.2%
+      6,825,750 750x Hypersynaptic Fibers; volume (runs): 940, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,089,000 100x Solerium; volume (runs): 299
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -1,167,000 100x Vanadium Hafnite; volume (runs): 550
+       -462,245 job cost
+       -106,500 shipment cost for 532 m3
+=      -267,943 per run; per day ISK: -1,429,028; m3: import 440, export 2,400
+
+Hexite  ---  -907,720/day at -4.3%
+      2,714,000 200x Hexite; volume (runs): 572, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+     -1,270,000 100x Chromium; volume (runs): 15,912
+     -1,269,000 100x Platinum; volume (runs): 16,869
+        -79,545 job cost
+        -15,000 shipment cost for 75 m3
+=      -113,465 per run; per day ISK: -907,720; m3: import 280, export 320
+
+Fermionic Condensates[Dysporite/Fluxed Condensates/Prometium]  ---  -1,837,260/day at -4.5%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 27000.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+     -1,096,999 job cost
+        -71,500 shipment cost for 358 m3
+=      -574,144 per run; per day ISK: -1,837,260; m3: import 312, export 832
+
+Fernite Alloy  ---  -494,136/day at -4.6%
+      1,382,000 200x Fernite Alloy; volume (runs): 347, runtime 10800s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -409,800 100x Scandium; volume (runs): 7,684
+       -822,700 100x Vanadium; volume (runs): 11,467
+        -40,407 job cost
+        -15,000 shipment cost for 75 m3
+=       -61,767 per run; per day ISK: -494,136; m3: import 280, export 320
+
+Hypersynaptic Fibers[Dysporite/Solerium/Vanadium Hafnite]  ---  -1,022,535/day at -5.1%
+      6,825,750 750x Hypersynaptic Fibers; volume (runs): 940, runtime 27000.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -605,000 50.0x Caesium; volume (runs): 13,277
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+       -595,195 job cost
+       -105,500 shipment cost for 528 m3
+=      -319,542 per run; per day ISK: -1,022,535; m3: import 248, export 1,440
+
+Fermionic Condensates[Caesarium Cadmide/Fluxed Condensates/Prometium]  ---  -2,255,096/day at -5.4%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 27000.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+     -4,544,000 100x Dysporite; volume (runs): 309
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -923,948 job cost
+        -71,500 shipment cost for 358 m3
+=      -704,718 per run; per day ISK: -2,255,096; m3: import 312, export 832
+
+Fermionic Condensates[Dysporite/Fluxed Condensates]  ---  -3,042,143/day at -5.8%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+     -3,329,000 100x Prometium; volume (runs): 470
+       -908,491 job cost
+        -72,000 shipment cost for 360 m3
+=      -760,536 per run; per day ISK: -3,042,143; m3: import 400, export 1,040
+
+Hypersynaptic Fibers[Vanadium Hafnite]  ---  -2,046,240/day at -5.8%
+      6,825,750 750x Hypersynaptic Fibers; volume (runs): 940, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,089,000 100x Solerium; volume (runs): 299
+     -4,544,000 100x Dysporite; volume (runs): 309
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+       -268,898 job cost
+       -106,500 shipment cost for 532 m3
+=      -383,670 per run; per day ISK: -2,046,240; m3: import 440, export 2,400
+
+Fermionic Condensates[Caesarium Cadmide/Fluxed Condensates]  ---  -3,564,438/day at -6.6%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+       -605,000 50.0x Caesium; volume (runs): 13,277
+     -4,544,000 100x Dysporite; volume (runs): 309
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+     -3,329,000 100x Prometium; volume (runs): 470
+       -735,440 job cost
+        -72,000 shipment cost for 360 m3
+=      -891,110 per run; per day ISK: -3,564,438; m3: import 400, export 1,040
+
+Fermionic Condensates[Fluxed Condensates/Prometium]  ---  -3,684,238/day at -6.9%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 21600.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+     -4,544,000 100x Dysporite; volume (runs): 309
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -545,000 50.0x Cadmium; volume (runs): 27,160
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -842,390 job cost
+        -72,000 shipment cost for 360 m3
+=      -921,060 per run; per day ISK: -3,684,238; m3: import 400, export 1,040
+
+Fermionic Condensates[Fluxed Condensates]  ---  -5,906,408/day at -8.0%
+     13,834,000 200x Fermionic Condensates; volume (runs): 578, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,508,000 100x Caesarium Cadmide; volume (runs): 587
+     -4,544,000 100x Dysporite; volume (runs): 309
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+     -2,933,000 50.0x Neodymium; volume (runs): 8,507
+     -1,312,500 50.0x Thulium; volume (runs): 8,671
+     -3,329,000 100x Prometium; volume (runs): 470
+       -653,882 job cost
+        -72,500 shipment cost for 362 m3
+=    -1,107,452 per run; per day ISK: -5,906,408; m3: import 547, export 1,387
+
+Caesarium Cadmide  ---  -1,586,368/day at -8.2%
+      2,382,000 200x Caesarium Cadmide; volume (runs): 293, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,090,000 100x Cadmium; volume (runs): 13,580
+     -1,210,000 100x Caesium; volume (runs): 6,639
+        -72,636 job cost
+        -15,000 shipment cost for 75 m3
+=      -198,296 per run; per day ISK: -1,586,368; m3: import 280, export 320
+
+Hypersynaptic Fibers[Dysporite/Solerium]  ---  -2,202,923/day at -8.4%
+      6,825,750 750x Hypersynaptic Fibers; volume (runs): 940, runtime 21600.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -605,000 50.0x Caesium; volume (runs): 13,277
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -3,396,500 50.0x Dysprosium; volume (runs): 9,654
+     -1,167,000 100x Vanadium Hafnite; volume (runs): 550
+       -533,933 job cost
+       -106,000 shipment cost for 530 m3
+=      -550,731 per run; per day ISK: -2,202,923; m3: import 320, export 1,800
+
+Hypersynaptic Fibers  ---  -4,918,868/day at -8.9%
+      6,825,750 750x Hypersynaptic Fibers; volume (runs): 940, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,089,000 100x Solerium; volume (runs): 299
+     -4,544,000 100x Dysporite; volume (runs): 309
+     -1,167,000 100x Vanadium Hafnite; volume (runs): 550
+       -207,636 job cost
+       -107,000 shipment cost for 535 m3
+=      -614,858 per run; per day ISK: -4,918,868; m3: import 680, export 3,600
+
+Hypersynaptic Fibers[Solerium/Vanadium Hafnite]  ---  -2,665,832/day at -9.7%
+      6,825,750 750x Hypersynaptic Fibers; volume (runs): 940, runtime 21600.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -605,000 50.0x Caesium; volume (runs): 13,277
+     -4,544,000 100x Dysporite; volume (runs): 309
+        -57,200 2.5x Hydrogen Fuel Block; volume (runs): 183,103
+       -411,350 50.0x Vanadium; volume (runs): 22,934
+       -406,500 50.0x Hafnium; volume (runs): 27,041
+       -340,586 job cost
+       -106,000 shipment cost for 530 m3
+=      -666,458 per run; per day ISK: -2,665,832; m3: import 320, export 1,800
+
+Ferrofluid  ---  -6,296,576/day at -10.2%
+      7,402,000 200x Ferrofluid; volume (runs): 217, runtime 10800s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -813,000 100x Hafnium; volume (runs): 13,521
+     -6,793,000 100x Dysprosium; volume (runs): 4,827
+       -231,612 job cost
+        -15,000 shipment cost for 75 m3
+=      -787,072 per run; per day ISK: -6,296,576; m3: import 280, export 320
+
+Hypersynaptic Fibers[Solerium]  ---  -4,787,448/day at -12.6%
+      6,825,750 750x Hypersynaptic Fibers; volume (runs): 940, runtime 16200.0s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+        -60,600 2.5x Oxygen Fuel Block; volume (runs): 163,259
+       -635,000 50.0x Chromium; volume (runs): 31,824
+       -605,000 50.0x Caesium; volume (runs): 13,277
+     -4,544,000 100x Dysporite; volume (runs): 309
+     -1,167,000 100x Vanadium Hafnite; volume (runs): 550
+       -279,324 job cost
+       -106,500 shipment cost for 532 m3
+=      -897,646 per run; per day ISK: -4,787,448; m3: import 440, export 2,400
+
+Terahertz Metamaterials[Promethium Mercurite]  ---  -3,361,908/day at -12.9%
+      4,815,000 300x Terahertz Metamaterials; volume (runs): 1,594, runtime 16200.0s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,887,000 100x Rolled Tungsten Alloy; volume (runs): 463
+        -56,475 2.5x Helium Fuel Block; volume (runs): 353,945
+       -490,000 50.0x Mercury; volume (runs): 17,086
+     -2,349,000 50.0x Promethium; volume (runs): 10,418
+       -332,983 job cost
+        -72,500 shipment cost for 362 m3
+=      -630,358 per run; per day ISK: -3,361,908; m3: import 333, export 1,600
+
+Terahertz Metamaterials  ---  -5,259,668/day at -12.9%
+      4,815,000 300x Terahertz Metamaterials; volume (runs): 1,594, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+     -1,887,000 100x Rolled Tungsten Alloy; volume (runs): 463
+     -3,102,000 100x Promethium Mercurite; volume (runs): 112
+       -153,058 job cost
+        -73,000 shipment cost for 365 m3
+=      -657,458 per run; per day ISK: -5,259,668; m3: import 520, export 2,400
+
+Thulium Hafnite  ---  -4,063,136/day at -14.3%
+      3,264,000 200x Thulium Hafnite; volume (runs): 100, runtime 10800s
+       -114,400 5x Hydrogen Fuel Block; volume (runs): 91,552
+       -813,000 100x Hafnium; volume (runs): 13,521
+     -2,625,000 100x Thulium; volume (runs): 4,335
+       -106,572 job cost
+        -15,000 shipment cost for 75 m3
+=      -507,892 per run; per day ISK: -4,063,136; m3: import 280, export 320
+
+Carbon Polymers  ---  -370,859/day at -17.9%
+        242,000 200x Carbon Polymers; volume (runs): 755, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+         -7,897 100x Hydrocarbons; volume (runs): 57,188
+       -137,500 100x Silicates; volume (runs): 30,006
+         -7,750 job cost
+        -15,000 shipment cost for 75 m3
+=       -46,357 per run; per day ISK: -370,859; m3: import 280, export 320
+
+Prometium  ---  -8,754,688/day at -18.5%
+      5,162,000 200x Prometium; volume (runs): 235, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,090,000 100x Cadmium; volume (runs): 13,580
+     -4,698,000 100x Promethium; volume (runs): 5,209
+       -177,276 job cost
+        -15,000 shipment cost for 75 m3
+=    -1,094,336 per run; per day ISK: -8,754,688; m3: import 280, export 320
+
+Titanium Chromide  ---  -3,265,864/day at -18.6%
+      1,920,600 200x Titanium Chromide; volume (runs): 347, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+       -799,300 100x Titanium; volume (runs): 7,603
+     -1,270,000 100x Chromium; volume (runs): 15,912
+        -65,715 job cost
+        -15,000 shipment cost for 75 m3
+=      -408,233 per run; per day ISK: -3,265,864; m3: import 280, export 320
+
+Tungsten Carbide[Sulfuric Acid]  ---  -2,151,064/day at -19.1%
+      1,872,000 10000x Tungsten Carbide; volume (runs): 3,983, runtime 16200.0s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+     -1,887,000 100x Rolled Tungsten Alloy; volume (runs): 463
+        -56,250 2.5x Nitrogen Fuel Block; volume (runs): 245,088
+         -3,150 50.0x Atmospheric Gases; volume (runs): 192,615
+        -55,600 50.0x Evaporite Deposits; volume (runs): 60,037
+        -72,165 job cost
+        -32,500 shipment cost for 162 m3
+=      -403,324 per run; per day ISK: -2,151,064; m3: import 333, export 533
+
+Tungsten Carbide  ---  -3,412,080/day at -19.9%
+      1,872,000 10000x Tungsten Carbide; volume (runs): 3,983, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+     -1,887,000 100x Rolled Tungsten Alloy; volume (runs): 463
+       -145,500 100x Sulfuric Acid; volume (runs): 1,605
+        -64,350 job cost
+        -33,000 shipment cost for 165 m3
+=      -426,510 per run; per day ISK: -3,412,080; m3: import 520, export 800
+
+Dysporite  ---  -13,294,468/day at -21.1%
+      6,676,000 200x Dysporite; volume (runs): 154, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+       -980,000 100x Mercury; volume (runs): 8,543
+     -6,793,000 100x Dysprosium; volume (runs): 4,827
+       -236,578 job cost
+        -15,000 shipment cost for 75 m3
+=    -1,661,808 per run; per day ISK: -13,294,468; m3: import 280, export 320
+
+Promethium Mercurite  ---  -10,247,988/day at -22.1%
+      4,844,000 200x Promethium Mercurite; volume (runs): 56, runtime 10800s
+       -112,950 5x Helium Fuel Block; volume (runs): 176,972
+       -980,000 100x Mercury; volume (runs): 8,543
+     -4,698,000 100x Promethium; volume (runs): 5,209
+       -173,728 job cost
+        -15,000 shipment cost for 75 m3
+=    -1,280,998 per run; per day ISK: -10,247,988; m3: import 280, export 320
+
+Fluxed Condensates  ---  -16,485,168/day at -23.9%
+      7,036,000 200x Fluxed Condensates; volume (runs): 109, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -5,866,000 100x Neodymium; volume (runs): 4,254
+     -2,625,000 100x Thulium; volume (runs): 4,335
+       -258,366 job cost
+        -15,000 shipment cost for 75 m3
+=    -2,060,646 per run; per day ISK: -16,485,168; m3: import 280, export 320
+
+Hyperflurite  ---  -12,315,968/day at -27.3%
+      4,410,000 200x Hyperflurite; volume (runs): 164, runtime 10800s
+       -112,500 5x Nitrogen Fuel Block; volume (runs): 122,544
+       -822,700 100x Vanadium; volume (runs): 11,467
+     -4,698,000 100x Promethium; volume (runs): 5,209
+       -168,996 job cost
+        -15,000 shipment cost for 75 m3
+=    -1,539,496 per run; per day ISK: -12,315,968; m3: import 280, export 320
+
+Solerium  ---  -8,335,504/day at -40.1%
+      1,703,400 200x Solerium; volume (runs): 149, runtime 10800s
+       -121,200 5x Oxygen Fuel Block; volume (runs): 81,629
+     -1,270,000 100x Chromium; volume (runs): 15,912
+     -1,210,000 100x Caesium; volume (runs): 6,639
+        -78,036 job cost
+        -15,000 shipment cost for 75 m3
+=    -1,041,938 per run; per day ISK: -8,335,504; m3: import 280, export 320
+
