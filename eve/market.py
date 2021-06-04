@@ -243,8 +243,9 @@ class ItemPriceCache:
         return parse_history(ipwd.history)
 
 
-def create_table(conn: sqlite3.Connection):
-    CREATE_TABLE_SQL = """
+def create_tables(conn: sqlite3.Connection):
+    conn.execute(
+        """
         CREATE TABLE IF NOT EXISTS "eveMarket" (
             "type_id" INTEGER PRIMARY KEY NOT NULL,
             "last_refreshed" INTEGER NOT NULL,
@@ -253,6 +254,9 @@ def create_table(conn: sqlite3.Connection):
             "high_price" REAL NOT NULL,
             "history" JSON NOT NULL
         );
+        """)
+    conn.execute(
+        """
         CREATE TABLE IF NOT EXISTS "eveMarketHistory" (
             "type_id" INTEGER NOT NULL,
             "retrieved_on" INTEGER NOT NULL,
@@ -260,5 +264,4 @@ def create_table(conn: sqlite3.Connection):
             "sell_orders" JSON NOT NULL,
             PRIMARY KEY ("type_id", "retrieved_on")
         );
-        """
-    conn.execute(CREATE_TABLE_SQL)
+        """)

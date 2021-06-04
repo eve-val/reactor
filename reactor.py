@@ -6,8 +6,6 @@ from typing import Any, Callable, Dict, Iterable, List, Set, Tuple
 
 from eve import market, services, world
 
-DB_FILE_NAME = "/home/inazarenko/src/eve/data/db.sqlite"
-
 REACTIONS = [
     46166,  # Caesarium Cadmide Reaction Formula
     46167,  # Carbon Polymers Reaction Formula

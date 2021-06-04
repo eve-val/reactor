@@ -5,7 +5,7 @@ import sqlite3
 
 from bravado.client import SwaggerClient
 
-REFERENCE_DB_FILE_NAME = "../reference/sqlite-latest.sqlite"
+REFERENCE_DB_FILE_NAME = "../data/reference.sqlite"
 STORE_DB_FILE_NAME = "../data/db.sqlite"
 
 

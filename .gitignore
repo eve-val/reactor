@@ -4,4 +4,4 @@ __pycache__/
 *.so
 .vscode/
 reference/
-data/
+data/*.sqlite
